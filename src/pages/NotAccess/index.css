@@ -1,0 +1,27 @@
+.notaccess {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  /* border: 1px solid blue; */
+}
+
+.new-user-component {
+  width: 100% !important;
+  /* border: 2px solid red; */
+  margin-left: 0px;
+  height: 100vh;
+  /* border: 1px solid red; */
+}
+
+.left-not {
+  width: 20%;
+}
+
+.right-not {
+  width: 100%;
+}
+
+.not-img {
+  width: 100%;
+  height: 100%;
+}

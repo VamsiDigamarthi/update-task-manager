@@ -1,0 +1,66 @@
+.new-add-signup-btn {
+  width: 30%;
+  text-align: center;
+  align-self: flex-end;
+  margin: 10px 0px;
+}
+
+.inputBox {
+  position: relative;
+}
+
+.inputBox input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(83, 81, 81, 0.25);
+  /* background: #1d2b3a; */
+  outline: none;
+  border-radius: 5px;
+  /* color: #fff; */
+  font-size: 1rem;
+}
+
+.inputBox select {
+  width: 145%;
+  padding: 10px;
+  border: 1px solid rgba(83, 81, 81, 0.25);
+  /* background: #1d2b3a; */
+  outline: none;
+  border-radius: 5px;
+  /* color: #fff; */
+  font-size: 1rem;
+  height: 40px;
+}
+
+.inputBox select:focus {
+  border: 1px solid #65a3c2;
+}
+
+.inputBox span {
+  position: absolute;
+  left: 0;
+  padding: 10px;
+  pointer-events: none;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.25);
+  text-transform: uppercase;
+  color: rgb(81, 81, 85);
+  transition: 0.5s;
+}
+
+.inputBox input:valid ~ span,
+.inputBox input:focus ~ span {
+  color: #65a3c2;
+  transform: translateX(10px) translateY(-7px);
+  font-size: 0.75em;
+  padding: 0 10px;
+  border-left: 1px solid #65a3c2;
+  border-right: 1px solid #65a3c2;
+  letter-spacing: 0.2em;
+  background-color: #fff;
+}
+
+.inputBox input:valid,
+.inputBox input:focus {
+  border: 1px solid #65a3c2;
+}

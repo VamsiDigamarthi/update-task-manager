@@ -6,9 +6,20 @@
 
 .main-container {
   display: flex;
+  /* gap: 0rem; */
+  /* position: fixed;
+  top: 0px;
+  left: 0px; */
+  position: relative;
 }
 main {
   padding: 10px;
+  overflow-y: scroll;
+}
+
+.body {
+  width: 100%;
+  /* border: 3px solid rgb(0, 255, 13); */
 }
 
 .title {
@@ -22,7 +33,11 @@ main {
   background: rgb(0, 7, 61);
   color: white;
   height: 100vh;
-  overflow-y: auto;
+  /* border: 1px solid red; */
+  /* overflow-y: hidden; */
+  position: sticky;
+  top: 1px;
+  left: 0px;
 }
 
 .top_section {
@@ -37,6 +52,7 @@ main {
 }
 .bars {
   width: 30px;
+  margin-left: 4px;
 }
 .hide {
   display: none;
@@ -62,7 +78,7 @@ main {
   margin-top: 15px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0.6rem;
 }
 .link {
   display: flex;
@@ -106,4 +122,29 @@ main {
 .menu_container .link {
   padding-left: 20px;
   border-bottom: #fff 0.5px solid;
+}
+
+.all-children {
+  /* border: 2px solid goldenrod; */
+  width: 100%;
+  /* background-color: red; */
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.color-choose-container {
+  position: relative;
+}
+
+.color-pick-btn {
+  width: 130px;
+  height: 35px;
+  color: #fff;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  background-color: transparent;
+  border: 1px solid #fff;
 }

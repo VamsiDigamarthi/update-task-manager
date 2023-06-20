@@ -1,0 +1,105 @@
+.collapsible .content {
+  padding: 6px;
+  background-color: #eeeeee;
+}
+.collapsible .header {
+  background-color: #dddddd;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-task-container {
+  width: 100%;
+}
+
+.user-task-container > table {
+  width: 99%;
+}
+
+.new-ul-user-list-container {
+  width: 250px;
+  min-height: 100px;
+}
+
+.new-ul-user-list-container {
+  /* border: 1px solid black; */
+  max-height: 130px;
+  overflow-y: auto;
+}
+
+.ee {
+  width: 100%;
+}
+
+.total-container {
+  background-color: antiquewhite;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  box-shadow: 0 0 20px rbga(0, 0, 0, 0.15);
+}
+
+.total-span {
+  color: #80190e;
+  font-size: 29px;
+  font-weight: bold;
+}
+
+.employee-cont {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  /* width: 260px; */
+
+  border-radius: 10px;
+
+  width: 100%;
+}
+
+.new-added-values-intimer-con {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.para-total-hour {
+  font-size: 18px;
+  font-weight: 600;
+  color: #a1a09f;
+}
+
+.fff {
+  font-size: 22px;
+}
+
+.change {
+  font-size: 18px;
+  padding-left: 10px;
+  /* font-size: 16px; */
+}
+
+.change::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: #cdcae3;
+  /* color: #414045; */
+}
+
+.new-added-timer-card {
+  /* border: 1px solid blue; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.new-added-timer-card > div:nth-child(1) {
+  width: 40%;
+  border: none;
+}
+
+.new-added-timer-card > div:nth-child(2) {
+  width: 40%;
+}

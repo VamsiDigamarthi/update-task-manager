@@ -1,0 +1,54 @@
+.edit-input-container1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 100%;
+}
+
+.edit-input-container1 > input {
+  width: 100%;
+  height: 35px;
+  border-radius: 7px;
+  border-color: #65a3c2;
+}
+
+.edit-btn1 {
+  width: 120px;
+  height: 35px;
+  background-color: #65a3c2;
+  border: none;
+  border-radius: 7px;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.edit-selected1 {
+  width: 96%;
+  height: 35px;
+  border-radius: 7px;
+  border: 1px solid #65a3c2;
+}
+
+.new-completed-date1 {
+  width: 100%;
+  height: 40px;
+  /* border: 1px solid red; */
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #65a3c2 !important;
+  border-radius: 5px;
+}
+
+.new-completed-date input {
+  width: 80%;
+  border: none;
+}
+
+.new-completed-date label {
+  width: 20%;
+  border: none;
+}

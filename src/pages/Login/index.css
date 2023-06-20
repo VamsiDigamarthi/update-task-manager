@@ -1,0 +1,120 @@
+.login-container {
+  width: 100%;
+  height: 97vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login {
+  display: flex;
+  height: 50%;
+  width: 60%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 6px;
+}
+
+.login-img {
+  width: 40%;
+  height: 94%;
+}
+
+.login-form1 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.9rem;
+  /* border: 1px solid red; */
+  padding: 10px;
+  height: 65%;
+  width: 40%;
+}
+
+.form-heading1 {
+  font-weight: bold;
+  font-style: italic;
+  font-size: 28px;
+  color: #8f8d8d;
+  color: #65a3c2;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.form-input-container1 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid #8f8d8d;
+  padding-bottom: 2px;
+  width: 90%;
+  position: relative;
+  /* margin-bottom: 5px; */
+}
+
+.form-input1 {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  width: 100%;
+}
+
+.form-input-container1 span {
+  position: absolute;
+  left: 1px;
+  pointer-events: none;
+  text-transform: uppercase;
+  transition: 0.5s;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  color: #8f8d8d;
+}
+
+.form-input-container1 input:valid ~ p,
+.form-input-container1 input:focus ~ p {
+  color: #65a3c2;
+  transform: translateX(1px) translateY(-13px);
+  font-size: 0.65em;
+  /* padding: 0 10px; */
+}
+
+.form-input-container1 input:valid ~ span,
+.form-input-container1 input:focus ~ span {
+  color: #65a3c2;
+  transform: translateX(0px) translateY(-19px);
+  font-size: 0.75em;
+  /* padding: 0 10px; */
+}
+
+.eye-icon {
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  color: #8f8d8d;
+  color: #65a3c2;
+}
+
+.login-btn {
+  height: 32px;
+  width: 130px;
+  border: none;
+  outline: none;
+  background-color: #65a3c2;
+  color: white;
+  border-radius: 4px;
+  font-size: 17px;
+  font-weight: 600;
+  font-style: italic;
+  font-family: "Times New Roman", Times, serif;
+  padding: 5px;
+}
+
+.reset-pass {
+  color: #8f8d8d;
+  line-height: 0px;
+  font-style: italic;
+}
