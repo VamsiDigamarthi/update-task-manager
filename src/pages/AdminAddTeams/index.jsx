@@ -220,7 +220,7 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
             user.role !== "" &&
             user.username !== "" &&
             user.password && (
-              <button className="signup-btn new-add-signup-btn" type="submit">
+              <button className="login-btn" type="submit">
                 Add team
               </button>
             )}

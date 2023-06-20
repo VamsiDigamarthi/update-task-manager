@@ -110,7 +110,7 @@ const ProjectIdModal = ({
               </div>
             ))}
           </div>
-          <button className="projectIdSub" type="submit">
+          <button  className="login-btn" type="submit">
             submit
           </button>
         </form>

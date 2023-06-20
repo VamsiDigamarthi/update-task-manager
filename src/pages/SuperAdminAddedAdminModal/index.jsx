@@ -109,56 +109,83 @@ const SuperAdminAddedAdminModal = ({
       >
         <form onSubmit={submitForm} className="signup-form">
           <div
-            className="form-input-container"
-            // style={{
-            //   border: user.name === "" ? "1px solid red" : "",
-            // }}
+            className="inputBox"
+            style={{
+              width: "100%",
+            }}
           >
-            <AiOutlineUser className="form-icons" />
             <input
-              placeholder="Name"
-              className="form-input"
+              // placeholder="Name"
+              // className="form-input"
               type="text"
               onChange={usernameChange}
               name="name"
               value={user.name}
+              required="required"
             />
+            <span>
+              <AiOutlineUser className="form-icons1" /> Name
+            </span>
           </div>
 
-          <div className="form-input-container">
-            <HiOutlineMail className="form-icons" />
+          <div
+            className="inputBox"
+            style={{
+              width: "100%",
+            }}
+          >
             <input
-              placeholder="Email"
-              className="form-input"
+              // placeholder="Email"
+              // className="form-input"
               type="text"
               onChange={usernameChange}
               name="username"
               value={user.username}
+              required="required"
             />
+            <span>
+              <HiOutlineMail className="form-icons1" /> Email
+            </span>
           </div>
 
-          <div className="form-input-container">
-            <RiLockPasswordLine className="form-icons" />
+          <div
+            className="inputBox"
+            style={{
+              width: "100%",
+            }}
+          >
             <input
-              placeholder="Password"
-              className="form-input"
+              // placeholder="Password"
+              // className="form-input"
               type="password"
               onChange={usernameChange}
               name="password"
               value={user.password}
+              required="required"
             />
+            <span>
+              <RiLockPasswordLine className="form-icons1" /> Password
+            </span>
           </div>
 
-          <div className="form-input-container">
-            <AiOutlineAntDesign className="form-icons" />
+          <div
+            className="inputBox"
+            style={{
+              width: "100%",
+            }}
+          >
             <input
-              placeholder="Designation"
-              className="form-input"
+              // placeholder="Designation"
+              // className="form-input"
               type="text"
               onChange={usernameChange}
               name="designation"
+              required="required"
               value={user.designation}
             />
+            <span>
+              <AiOutlineAntDesign className="form-icons1" /> Designation
+            </span>
           </div>
 
           {/* <div className="form-input-container">
@@ -188,11 +215,15 @@ const SuperAdminAddedAdminModal = ({
               value={user.role}
             />
           </div> */}
-          <div className="form-input-container">
+          <div  className="inputBox">
             <select
-              className="employee-type"
+              // className="employee-type"
               name="role"
               onChange={usernameChange}
+              required="required"
+              style={{
+                width:"100%"
+              }}
             >
               <option disabled selected hidden>
                 Please select role of Employee
@@ -204,7 +235,7 @@ const SuperAdminAddedAdminModal = ({
             user.role !== "" &&
             user.username !== "" &&
             user.password && (
-              <button className="signup-btn new-add-signup-btn" type="submit">
+              <button className="login-btn" type="submit">
                 Add Admin
               </button>
             )}

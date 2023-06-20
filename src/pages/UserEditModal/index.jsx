@@ -99,7 +99,7 @@ const UserEditModal = ({
             {edit && (
               <button
                 disabled={edit === ""}
-                className="edit-btn1"
+                className="login-btn"
                 type="submit"
               >
                 Submit

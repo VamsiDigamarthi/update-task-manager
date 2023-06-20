@@ -140,7 +140,7 @@ const Users = ({ changeDarkMode, darkMode }) => {
       .toLocaleLowerCase()
       .includes(inputSearchValue.toLocaleLowerCase())
   );
-  console.log(valuesFilter);
+  //console.log(valuesFilter);
 
   useEffect(() => {
     const save = userDataTask?.forEach((each) => {
@@ -1290,6 +1290,10 @@ const Users = ({ changeDarkMode, darkMode }) => {
               placeholder="search based on status"
               onChange={searchInput}
               className="change"
+              style={{
+                color: darkMode ? "#ffffff" : "",
+              }}
+
             />
             <div>
               <BiSearchAlt
@@ -1301,6 +1305,7 @@ const Users = ({ changeDarkMode, darkMode }) => {
             </div>
           </div>
         </div>
+        
       </div>
       {valuesFilter.length !== 0 && (
         <table className="content-table">

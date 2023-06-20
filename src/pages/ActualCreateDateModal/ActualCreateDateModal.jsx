@@ -118,7 +118,7 @@ const ActualCreateDateModal = ({
               // className="modal-input-text  date-input"
             />
           </div>
-          <button type="submit" className="actual-sub-btn">
+          <button type="submit"  className="login-btn">
             submit
           </button>
         </form>

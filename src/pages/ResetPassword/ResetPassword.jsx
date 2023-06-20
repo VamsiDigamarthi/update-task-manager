@@ -19,6 +19,8 @@ const ResetPassword = ({ changeDarkMode, darkMode }) => {
 
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const [userDoesNot, setUserDoesNot] = useState("")
+
   const usernameChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
@@ -36,7 +38,8 @@ const ResetPassword = ({ changeDarkMode, darkMode }) => {
         setAcknow(res.data.acknowledged);
       })
       .catch((e) => {
-        console.log(e);
+        console.log(e.response?.data);
+        setUserDoesNot(e.response?.data)
       });
 
     setUser({ username: "", password: "" });
@@ -111,6 +114,9 @@ const ResetPassword = ({ changeDarkMode, darkMode }) => {
             <HiOutlineMail className="form-icons1" /> Email
           </span>
         </div>
+        {userDoesNot && (
+          <p className="user-does-not-exit">{userDoesNot}</p>
+        )}
         <div
           className="inputBox"
           style={{
@@ -189,14 +195,19 @@ const ResetPassword = ({ changeDarkMode, darkMode }) => {
           </p>
         )}
 
+        {/*  "#8f8d8d */}
+
         {confirmPassword !== user.password ? (
-          <p style={{ textDecoration: "none", color: "#8f8d8d" }}>
+          <p style={{ textDecoration: "none", color: "#a3364e" }}>
             password confirmpassword must be same
           </p>
         ) : (
-          <button className="login-btn" type="submit">
-            submit
-          </button>
+          user.username !== "" &&
+          user.password !== "" && (
+            <button className="login-btn" type="submit">
+              submit
+            </button>
+          )
         )}
 
         <div

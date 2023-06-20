@@ -21,7 +21,7 @@ function UserModal({
 
   const [editDesc, setEditDesc] = useState(true);
 
-  console.log(descEditIdValue);
+  // console.log(descEditIdValue);
 
   //console.log(taskDescId);
   // const [v, setV] = useState(datilsTask);
@@ -65,7 +65,7 @@ function UserModal({
     // v = "";
   };
 
-  console.log(descr);
+  // console.log(descr);
 
   return (
     <>
@@ -127,7 +127,7 @@ function UserModal({
               // disabled={true}
               disabled={editDesc}
               onClick={editDescSubmitTask}
-              className="edit-btn"
+              className="login-btn"
               style={{
                 background: "#65a3c2",
               }}

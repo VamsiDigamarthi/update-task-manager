@@ -37,12 +37,12 @@ const ProfileEditModal = ({ editProfileModal, setEditProfileModal }) => {
         console.log(e);
       });
 
-    setUserEdit({ profilePic: "", name: "", designation: "" });
+    // setUserEdit({ profilePic: "", name: "", designation: "" });
   };
 
   const theme = useMantineTheme();
 
-  console.log(userEdit);
+  // console.log(userEdit);
 
   return (
     <>

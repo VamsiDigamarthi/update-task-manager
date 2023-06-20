@@ -210,7 +210,7 @@ const AddUserTeamModal = ({
             user.role !== "" &&
             user.username !== "" &&
             user.password && (
-              <button className="signup-btn" type="submit">
+              <button  className="login-btn" type="submit">
                 SignUp
               </button>
             )}

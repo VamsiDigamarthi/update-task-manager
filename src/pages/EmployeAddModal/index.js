@@ -229,7 +229,7 @@ const EmployeAddModal = ({
               taskAdd.status !== "" &&
               taskAdd.username !== "" &&
               taskAdd.description && (
-                <button className="edit-btn" type="submit">
+                <button  className="login-btn" type="submit">
                   Submit
                 </button>
               )}

@@ -222,7 +222,7 @@ const AdminAddTaskToTeam = ({
               taskAdd.username !== "" &&
               taskAdd.description !== "" &&
               taskAdd.date !== "" && (
-                <button className="edit-btn" type="submit">
+                <button  className="login-btn" type="submit">
                   Submit
                 </button>
               )}

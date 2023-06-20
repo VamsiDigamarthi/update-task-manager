@@ -1,6 +1,6 @@
 .super-admin {
   display: flex;
-  /* flex-direction: column; */
+  flex-direction: column;
   gap: 0.5rem;
 }
 

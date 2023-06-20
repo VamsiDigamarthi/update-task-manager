@@ -16,13 +16,18 @@ const Login = ({ changeDarkMode, darkMode }) => {
     password: "",
   });
 
+
   const [eyeIconsValue, setEyeIconsValue] = useState(true);
 
   //console.log(UUU?.response);
 
-  const err = useSelector((state) => state.authReducer.fail);
+  let err;
 
-  const error = useSelector((state) => state.authReducer.error);
+  err=""
+
+ err = useSelector((state) => state.authReducer.fail);
+
+  // const error = useSelector((state) => state.authReducer.error);
 
   // console.log(error);
 
@@ -148,7 +153,8 @@ const Login = ({ changeDarkMode, darkMode }) => {
               />
             )}
           </div>
-          <button className="login-btn" type="submit">
+          
+          <button className="login-btn" type="submit" disabled ={user.username === '' && user.password === ''}>
             Submit
           </button>
 

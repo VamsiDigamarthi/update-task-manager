@@ -10,8 +10,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./SidebarMenu";
 import { useLocation } from "react-router-dom";
 import { ColorPicker, useColor } from "react-color-palette";
+import {MdOutlineSupervisedUserCircle} from 'react-icons/md'
 import "react-color-palette/lib/css/styles.css";
 const routes = [
+  {
+    path: "/superadmin",
+    name: "Super Admin",
+    icon: <MdOutlineSupervisedUserCircle />,
+  },
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -71,23 +77,23 @@ const routes = [
         name: "Profile ",
         icon: <FaUser />,
       },
-      {
-        path: "/settings/2fa",
-        name: "2FA",
-        icon: <FaLock />,
-      },
-      {
-        path: "/settings/billing",
-        name: "Billing",
-        icon: <FaMoneyBill />,
-      },
+      // {
+      //   path: "/settings/2fa",
+      //   name: "2FA",
+      //   icon: <FaLock />,
+      // },
+      // {
+      //   path: "/settings/billing",
+      //   name: "Billing",
+      //   icon: <FaMoneyBill />,
+      // },
     ],
   },
-  {
-    path: "/saved",
-    name: "Saved",
-    icon: <AiFillHeart />,
-  },
+  // {
+  //   path: "/saved",
+  //   name: "Saved",
+  //   icon: <AiFillHeart />,
+  // },
 ];
 
 const SideBar = ({ children, darkMode }) => {
@@ -95,7 +101,7 @@ const SideBar = ({ children, darkMode }) => {
   const [colorChange, setColorChange] = useState(false);
 
   const [color, setColor] = useColor("hex", "#00073D");
-  console.log(color);
+  // console.log(color);
 
   const toggle = () => setIsOpen(!isOpen);
   const inputAnimation = {
@@ -116,7 +122,7 @@ const SideBar = ({ children, darkMode }) => {
   };
 
   const location = useLocation();
-  console.log(location.pathname);
+  // console.log(location.pathname);
 
   const pathValue = location.pathname;
 
@@ -141,7 +147,7 @@ const SideBar = ({ children, darkMode }) => {
     setColorChange(!colorChange);
   };
 
-  console.log(colorChange);
+  // console.log(colorChange);
 
   return (
     <>

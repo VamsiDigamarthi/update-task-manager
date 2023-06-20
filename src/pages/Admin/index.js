@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { SpinnerCircular } from "spinners-react";
+import { MdAddTask } from "react-icons/md";
 import "./index.css";
 
 import Header from "../Header";
@@ -255,8 +256,14 @@ const Admin = ({ changeDarkMode, darkMode }) => {
 
           {accessAllProjectToAdmin.length !== 0 && (
             <div className="selectAdminChangeValue">
-              <div style={{ width: "40%" }}>
-                {newArrayLength.length !== 0 && (
+              <div
+                style={{
+                  width: "40%",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                {/* {newArrayLength.length !== 0 && (
                   <div
                     style={{
                       display: "flex",
@@ -289,8 +296,55 @@ const Admin = ({ changeDarkMode, darkMode }) => {
                       </span>
                     </p>
                   </div>
-                )}
+                )} */}
+                {/*  */}
+                <div
+                  className="admin-employee-f-container"
+                  style={{
+                    marginRight: "30px",
+                  }}
+                >
+                  <div id="new-admin-employee-s-container">
+                    <MdAddTask className="new-task-icon" />
+                    <div>
+                      <p
+                        className="task-para"
+                        style={{
+                          color: darkMode ? "#ffffff" : "",
+                        }}
+                      >
+                        {newArrayLength} Tasks
+                      </p>
+                      <span className="task-com">completed</span>
+                    </div>
+                    {/* <div>
+                      <span className="task-admin-percentage"
+                      
+                      >100%</span>
+                    </div> */}
+                  </div>
+                </div>
+                <div className="admin-employee-f-container">
+                  <div id="new-admin-employee-s-container">
+                    <MdAddTask className="new-task-icon" />
+                    <div>
+                      <p
+                        className="task-para"
+                        style={{
+                          color: darkMode ? "#ffffff" : "",
+                        }}
+                      >
+                        {filterPieValue.length} Tasks
+                      </p>
+                      <span className="task-com">In-Completed</span>
+                    </div>
+                    
+                  </div>
+                </div>
+                {/*  */}
               </div>
+
+              {/* drop down list */}
               <div className="selected dropdown">
                 <select onChange={adminChangeTeam}>
                   <option disabled selected hidden>

@@ -7,9 +7,9 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import Dashboard from "./pages/Dashboard";
 
-import Saved from "./pages/Saved";
+
+
 import Setting from "./pages/Setting";
 import Users from "./pages/Users";
 import { useState } from "react";
@@ -19,6 +19,7 @@ import { useSelector } from "react-redux";
 import NotAccess from "./pages/NotAccess";
 import Admin from "./pages/Admin";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
+import SuperAdmin from "./pages/SuperAdmin";
 
 var USER_TYPE = {
   EMPLOYEE: "employee",
@@ -78,6 +79,24 @@ function App() {
                     <Navigate to="/teams" />
                   ) : (
                     <Navigate to="/dashboard" />
+                  )
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+
+            <Route
+              path="/superadmin"
+              element={
+                UUU ? (
+                  CURRENT_USER === USER_TYPE.SUPER_ADMIN ? (
+                    <SuperAdmin
+                      changeDarkMode={changeDarkMode}
+                      darkMode={darkMode}
+                    />
+                  ) : (
+                    <NotAccess />
                   )
                 ) : (
                   <Navigate to="/login" />
@@ -163,11 +182,11 @@ function App() {
             />
 
             {/*  */}
-
+            {/* 
             <Route path="/saved" element={<Saved />} />
             <Route path="/settings" element={<Setting />} />
 
-            <Route path="*" element={<> not found</>} />
+            <Route path="*" element={<> not found</>} /> */}
           </Routes>
         </SideBar>
       </Router>
