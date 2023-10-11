@@ -18,7 +18,9 @@ function TeamDeleteTaskModal({
   const deleteTaskButton = (e) => {
     e.preventDefault();
     const deleteTask = () => {
-      const API = axios.create({ baseURL: "http://localhost:5000" });
+      const API = axios.create({
+        baseURL: "https://server-bt-tasks.onrender.com",
+      });
       API.delete(`/tasks/delete/${_id}`)
         .then((res) => {
           // getUserTask();
@@ -33,7 +35,9 @@ function TeamDeleteTaskModal({
     };
 
     const timerDeleteBasedOnTask = () => {
-      const API = axios.create({ baseURL: "http://localhost:5000" });
+      const API = axios.create({
+        baseURL: "https://server-bt-tasks.onrender.com",
+      });
       API.delete(`time/delete/timer/${_id}`)
         .then((res) => {
           // getUserTask();

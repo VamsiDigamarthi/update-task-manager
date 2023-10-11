@@ -54,7 +54,9 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
   const submitForm = async (e) => {
     e.preventDefault();
 
-    const API = axios.create({ baseURL: "http://localhost:5000" });
+    const API = axios.create({
+      baseURL: "https://server-bt-tasks.onrender.com",
+    });
 
     API.post("/auth/register", user)
       .then((res) => {

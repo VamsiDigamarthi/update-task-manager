@@ -46,7 +46,9 @@ const Admin = ({ changeDarkMode, darkMode }) => {
   const adminrole = { role: UUU.role };
 
   const getAllTeamsByAdmin = () => {
-    const API = axios.create({ baseURL: "http://localhost:5000" });
+    const API = axios.create({
+      baseURL: "https://server-bt-tasks.onrender.com",
+    });
 
     // API.post("/team/user", adminrole)
     //   .then((res) => {
@@ -72,7 +74,9 @@ const Admin = ({ changeDarkMode, darkMode }) => {
   };
 
   const accessAllProjectsToAdmin = () => {
-    const API = axios.create({ baseURL: "http://localhost:5000" });
+    const API = axios.create({
+      baseURL: "https://server-bt-tasks.onrender.com",
+    });
     API.get(`/tasks/admin/allprojects/${UUU._id}`)
       .then((res) => {
         // setTeamUserList(res.data);
@@ -111,7 +115,9 @@ const Admin = ({ changeDarkMode, darkMode }) => {
   );
 
   const fetchTheOneOfTask = (id) => {
-    const API = axios.create({ baseURL: "http://localhost:5000" });
+    const API = axios.create({
+      baseURL: "https://server-bt-tasks.onrender.com",
+    });
     const sss = {
       project_id: id,
     };
@@ -338,7 +344,6 @@ const Admin = ({ changeDarkMode, darkMode }) => {
                       </p>
                       <span className="task-com">In-Completed</span>
                     </div>
-                    
                   </div>
                 </div>
                 {/*  */}

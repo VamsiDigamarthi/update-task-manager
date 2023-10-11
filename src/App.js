@@ -7,9 +7,6 @@ import {
   Navigate,
 } from "react-router-dom";
 
-
-
-
 import Setting from "./pages/Setting";
 import Users from "./pages/Users";
 import { useState } from "react";

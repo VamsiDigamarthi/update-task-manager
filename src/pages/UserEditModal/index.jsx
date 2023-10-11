@@ -23,7 +23,9 @@ const UserEditModal = ({
 
   const editSubmitTask = (e) => {
     e.preventDefault();
-    const API = axios.create({ baseURL: "http://localhost:5000" });
+    const API = axios.create({
+      baseURL: "https://server-bt-tasks.onrender.com",
+    });
     API.put(`/tasks/${editUserTask}`, edit)
       .then((res) => {
         //console.log("edit Success");

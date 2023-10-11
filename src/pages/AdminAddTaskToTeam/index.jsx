@@ -30,7 +30,9 @@ const AdminAddTaskToTeam = ({
   const addTaskSubmit = (e) => {
     e.preventDefault();
 
-    const API = axios.create({ baseURL: "http://localhost:5000" });
+    const API = axios.create({
+      baseURL: "https://server-bt-tasks.onrender.com",
+    });
 
     API.post("/tasks/addtaks", taskAdd)
       .then((res) => {
@@ -222,7 +224,7 @@ const AdminAddTaskToTeam = ({
               taskAdd.username !== "" &&
               taskAdd.description !== "" &&
               taskAdd.date !== "" && (
-                <button  className="login-btn" type="submit">
+                <button className="login-btn" type="submit">
                   Submit
                 </button>
               )}

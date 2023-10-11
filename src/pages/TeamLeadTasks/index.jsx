@@ -184,7 +184,9 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
   };
 
   const basedOnProjectUserGet = (id) => {
-    const API = axios.create({ baseURL: "http://localhost:5000" });
+    const API = axios.create({
+      baseURL: "https://server-bt-tasks.onrender.com",
+    });
     API.get(`auth/project/click/user/${id}`)
       .then((res) => {
         //setTeamUserList(res.data);
@@ -200,7 +202,9 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
   };
 
   const basedOnProjectClickCorreTimerGet = (id) => {
-    const API = axios.create({ baseURL: "http://localhost:5000" });
+    const API = axios.create({
+      baseURL: "https://server-bt-tasks.onrender.com",
+    });
     API.get(`/time/value/${id}`)
       .then((res) => {
         //setTeamUserList(res.data);
@@ -569,7 +573,9 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
 
   const getTeamOfTeaks = async (n) => {
     const role = { username: n };
-    const API = axios.create({ baseURL: "http://localhost:5000" });
+    const API = axios.create({
+      baseURL: "https://server-bt-tasks.onrender.com",
+    });
     // API.post("/tasks/employee", role)
     //   .then((res) => {
     //     setTeamAllTask(res.data);
@@ -580,6 +586,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
     //const API = axios.create({ baseURL: "http://localhost:5000" });
     API.post("/tasks/teamleader/task", role)
       .then((res) => {
+        console.log(res.data);
         setTeamAllTask(res.data);
       })
       .catch((e) => {
@@ -601,7 +608,10 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
   // ftech the timer based on employee task
 
   const fetchTheTimersBasedOnTask = (id) => {
-    const API = axios.create({ baseURL: "http://localhost:5000" });
+    setTimerStoreEmployeeTask([]);
+    const API = axios.create({
+      baseURL: "https://server-bt-tasks.onrender.com",
+    });
 
     API.get(`/time/taskvalue/${id}`)
       .then((res) => {
@@ -659,15 +669,16 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
 
   const employeeTaskSeacrhBasedOnProjectId = (e) => {
     setSearchTaskBasedOnProject(e.target.value);
+    console.log(e.target.value);
   };
 
-  const filterEmployeeTask = teamAllTask?.filter((each) =>
-    each.project_id.split("-")[2].includes(searchTaskBasedOnProject)
-  );
+  // const filterEmployeeTask = teamAllTask?.filter((each) =>
+  //   each.project_id.split("-")[2]?.includes("001")
+  // );
 
   // searchTaskBasedOnProject
 
-  //console.log(filterEmployeeTask);
+  // console.log(filterEmployeeTask);
 
   return (
     <div className="TeamLeadTaska">
@@ -1052,7 +1063,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
         {/* seacrh container end */}
 
         <div className="user-task-container">
-          {filterEmployeeTask.length !== 0 && (
+          {teamAllTask.length !== 0 && (
             <table className="content-table">
               <thead>
                 <tr>
@@ -1072,7 +1083,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
                   color: darkMode ? "#ffffff" : "",
                 }}
               >
-                {filterEmployeeTask.map((each, index) => (
+                {teamAllTask?.map((each, index) => (
                   <tr
                     key={index}
                     onClick={() => fetchTheTimersBasedOnTask(each._id)}

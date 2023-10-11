@@ -24,7 +24,9 @@ const ProfileEditModal = ({ editProfileModal, setEditProfileModal }) => {
     e.preventDefault();
     const id = UUU?._id;
 
-    const API = axios.create({ baseURL: "http://localhost:5000" });
+    const API = axios.create({
+      baseURL: "https://server-bt-tasks.onrender.com",
+    });
 
     API.put(`auth/profile/edit/${id}`, userEdit)
       .then((res) => {

@@ -16,16 +16,15 @@ const Login = ({ changeDarkMode, darkMode }) => {
     password: "",
   });
 
-
   const [eyeIconsValue, setEyeIconsValue] = useState(true);
 
   //console.log(UUU?.response);
 
   let err;
 
-  err=""
+  err = "";
 
- err = useSelector((state) => state.authReducer.fail);
+  err = useSelector((state) => state.authReducer.fail);
 
   // const error = useSelector((state) => state.authReducer.error);
 
@@ -48,7 +47,9 @@ const Login = ({ changeDarkMode, darkMode }) => {
 
     // login details api call start
 
-    const API = axios.create({ baseURL: "http://localhost:5000" });
+    const API = axios.create({
+      baseURL: "https://server-bt-tasks.onrender.com",
+    });
 
     const newDates = new Date();
 
@@ -153,8 +154,12 @@ const Login = ({ changeDarkMode, darkMode }) => {
               />
             )}
           </div>
-          
-          <button className="login-btn" type="submit" disabled ={user.username === '' && user.password === ''}>
+
+          <button
+            className="login-btn"
+            type="submit"
+            disabled={user.username === "" && user.password === ""}
+          >
             Submit
           </button>
 

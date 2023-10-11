@@ -15,7 +15,9 @@ const AdminDeleteTeamsModal = ({
   const deleteTaskButton = () => {
     const { _id } = deletedTeams;
     //console.log(_id);
-    const API = axios.create({ baseURL: "http://localhost:5000" });
+    const API = axios.create({
+      baseURL: "https://server-bt-tasks.onrender.com",
+    });
     API.delete(`/auth/admin/team/delete/${_id}`)
       .then((res) => {
         // getUserTask();

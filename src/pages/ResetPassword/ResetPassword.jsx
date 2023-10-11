@@ -19,7 +19,7 @@ const ResetPassword = ({ changeDarkMode, darkMode }) => {
 
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [userDoesNot, setUserDoesNot] = useState("")
+  const [userDoesNot, setUserDoesNot] = useState("");
 
   const usernameChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -30,7 +30,9 @@ const ResetPassword = ({ changeDarkMode, darkMode }) => {
   const submitForm = async (e) => {
     e.preventDefault();
 
-    const API = axios.create({ baseURL: "http://localhost:5000" });
+    const API = axios.create({
+      baseURL: "https://server-bt-tasks.onrender.com",
+    });
     API.put("/auth/reset/password", user)
       .then((res) => {
         //console.log(res.data);
@@ -39,7 +41,7 @@ const ResetPassword = ({ changeDarkMode, darkMode }) => {
       })
       .catch((e) => {
         console.log(e.response?.data);
-        setUserDoesNot(e.response?.data)
+        setUserDoesNot(e.response?.data);
       });
 
     setUser({ username: "", password: "" });
@@ -114,9 +116,7 @@ const ResetPassword = ({ changeDarkMode, darkMode }) => {
             <HiOutlineMail className="form-icons1" /> Email
           </span>
         </div>
-        {userDoesNot && (
-          <p className="user-does-not-exit">{userDoesNot}</p>
-        )}
+        {userDoesNot && <p className="user-does-not-exit">{userDoesNot}</p>}
         <div
           className="inputBox"
           style={{

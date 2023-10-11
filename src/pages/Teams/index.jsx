@@ -173,7 +173,9 @@ const Teams = ({ changeDarkMode, darkMode }) => {
 
   const getTeamOfTeaks = async (n) => {
     const role = { username: n };
-    const API = axios.create({ baseURL: "http://localhost:5000" });
+    const API = axios.create({
+      baseURL: "https://server-bt-tasks.onrender.com",
+    });
     // API.post("/tasks/employee", role)
     //   .then((res) => {
     //     setTeamAllTask(res.data);
@@ -276,7 +278,9 @@ const Teams = ({ changeDarkMode, darkMode }) => {
   // team leader employees fetch api call change to specific project click corresponding employee fecth
 
   const getTeamOfEmployee = async () => {
-    const API = axios.create({ baseURL: "http://localhost:5000" });
+    const API = axios.create({
+      baseURL: "https://server-bt-tasks.onrender.com",
+    });
 
     API.post("/team/user", teamUserAccess)
       .then((res) => {
@@ -326,7 +330,9 @@ const Teams = ({ changeDarkMode, darkMode }) => {
 
     const userName = { username: UUU.username };
 
-    const API = axios.create({ baseURL: "http://localhost:5000" });
+    const API = axios.create({
+      baseURL: "https://server-bt-tasks.onrender.com",
+    });
 
     API.post("/tasks/teamleader/task", userName)
       .then((res) => {
@@ -392,7 +398,9 @@ const Teams = ({ changeDarkMode, darkMode }) => {
         const value = { username: username };
         //console.log(`===========${username}`);
 
-        const API = axios.create({ baseURL: "http://localhost:5000" });
+        const API = axios.create({
+          baseURL: "https://server-bt-tasks.onrender.com",
+        });
         API.post("/tasks/teamleader/task", value)
           .then((res) => {
             setTeamLeaderTask(res.data);
@@ -419,7 +427,9 @@ const Teams = ({ changeDarkMode, darkMode }) => {
       const adminrole = { role: UUU.role };
 
       const getAllTeamsByAdmin = () => {
-        const API = axios.create({ baseURL: "http://localhost:5000" });
+        const API = axios.create({
+          baseURL: "https://server-bt-tasks.onrender.com",
+        });
         // if admin open drop down add select team old modal
 
         // API.post("/team/user", adminrole)
@@ -453,7 +463,9 @@ const Teams = ({ changeDarkMode, darkMode }) => {
 
     // api call fetch teams leader data
     const getOneTeamLeader = () => {
-      const API = axios.create({ baseURL: "http://localhost:5000" });
+      const API = axios.create({
+        baseURL: "https://server-bt-tasks.onrender.com",
+      });
 
       API.post("/team/oneteamleader", adminAndTams)
         .then((res) => {

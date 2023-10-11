@@ -31,7 +31,9 @@ const SuperAdmin = ({ changeDarkMode, darkMode }) => {
   };
 
   const getAllTeamsByAdmin = () => {
-    const API = axios.create({ baseURL: "http://localhost:5000" });
+    const API = axios.create({
+      baseURL: "https://server-bt-tasks.onrender.com",
+    });
 
     API.get(`team/admin/team/${UUU._id}`)
       .then((res) => {

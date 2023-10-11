@@ -58,7 +58,9 @@ const SuperAdminAddedAdminModal = ({
   const submitForm = async (e) => {
     e.preventDefault();
 
-    const API = axios.create({ baseURL: "http://localhost:5000" });
+    const API = axios.create({
+      baseURL: "https://server-bt-tasks.onrender.com",
+    });
 
     API.post("/auth/register", user)
       .then((res) => {
@@ -215,14 +217,14 @@ const SuperAdminAddedAdminModal = ({
               value={user.role}
             />
           </div> */}
-          <div  className="inputBox">
+          <div className="inputBox">
             <select
               // className="employee-type"
               name="role"
               onChange={usernameChange}
               required="required"
               style={{
-                width:"100%"
+                width: "100%",
               }}
             >
               <option disabled selected hidden>
