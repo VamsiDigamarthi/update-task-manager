@@ -67,8 +67,6 @@ function UserModal({
     // v = "";
   };
 
-  // console.log(descr);
-
   return (
     <>
       <Modal
@@ -109,7 +107,7 @@ function UserModal({
 
         {/* <textarea>{datilsTask}</textarea> */}
 
-        {UUU.role !== "employee" && (
+        {UUU[0]?.role !== "employee" && (
           <div
             className="desc-edit-btn"
             style={{

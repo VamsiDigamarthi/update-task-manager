@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 import { Modal, useMantineTheme } from "@mantine/core";
+import { API } from "../../data/apicall";
 
 const EmployeAddModal = ({
   taskAddModal,
@@ -17,11 +18,11 @@ const EmployeAddModal = ({
 
   const [taskAdd, setTaskAddr] = useState({
     task: "",
-    status: "",
+    status: "In-completed",
     username: "",
     description: "",
     date: "",
-    head: UUU._id,
+    head: UUU[0]?.id,
     createdate: "",
     project_id: "",
   });
@@ -33,39 +34,28 @@ const EmployeAddModal = ({
   const addTaskSubmit = (e) => {
     e.preventDefault();
 
-    const API = axios.create({
-      baseURL: "https://server-bt-tasks.onrender.com",
-    });
-
     API.post("/tasks/addtaks", taskAdd)
       .then((res) => {
         //console.log(res.data);
 
         setTaskAddModal(false);
         getTeamOfTeaks();
+        setTaskAddr({
+          task: "",
+          username: "",
+          description: "",
+          createdate: "",
+          project_id: "",
+        });
       })
       .catch((e) => {
         console.log(e);
       });
-    setTaskAddr({
-      task: "",
-      status: "",
-      username: "",
-      description: "",
-      createdate: "",
-      project_id: "",
-    });
   };
 
   const theme = useMantineTheme();
 
-  // console.log(taskAdd);
-
-  // const changeDateFromAddTask = (e) => {
-  //   console.log(e.target.value);
-  // };
-
-  //console.log(taskAdd);
+  console.log(taskAdd);
 
   return (
     <>
@@ -106,7 +96,7 @@ const EmployeAddModal = ({
               <div
                 className="inputBox"
                 style={{
-                  width: "70%",
+                  width: "100%",
                 }}
               >
                 <input
@@ -118,16 +108,6 @@ const EmployeAddModal = ({
                   required="required"
                 />
                 <span>taskname</span>
-              </div>
-              <div className="radios-buttons">
-                <label htmlfor="incomplete">incompleted</label>
-                <input
-                  id="incomplete"
-                  name="status"
-                  onChange={taskAddFun}
-                  type="checkbox"
-                  value="In-completed"
-                />
               </div>
             </div>
             <div className="inputBox">
@@ -202,15 +182,13 @@ const EmployeAddModal = ({
                 width: "100%",
               }}
             >
+              <option disabled selected hidden>
+                Please select project Id
+              </option>
               {teamLeaderTask?.map((each, index) => (
-                <>
-                  <option disabled selected hidden>
-                    Please select project Id
-                  </option>
-                  <option key={index} value={each.project_id}>
-                    {each.project_id}
-                  </option>
-                </>
+                <option key={index} value={each.project_id}>
+                  {each.project_id}
+                </option>
               ))}
             </select>
           </div>
@@ -228,7 +206,6 @@ const EmployeAddModal = ({
           ></textarea>
           <div>
             {taskAdd.task !== "" &&
-              taskAdd.status !== "" &&
               taskAdd.username !== "" &&
               taskAdd.description && (
                 <button className="login-btn" type="submit">

@@ -7,29 +7,28 @@ import "./index.css";
 import { useSelector } from "react-redux";
 import FileBase64 from "react-file-base64";
 import axios from "axios";
+import { API } from "../../data/apicall";
 
 const AddUserTeamModal = ({
   addUserModal,
   setAddUserModal,
   getTeamOfEmployee,
-  teamLeaderTask,
+  // teamLeaderTask,
 }) => {
   const UUU = useSelector((state) => state.authReducer.authData);
 
   const [user, setUser] = useState({
     name: "",
-    role: "",
+    role: "employee",
     username: "",
     password: "",
-    //head: UUU.role,
-    head: UUU._id,
+    head: UUU[0]?.id,
     designation: "",
     profilePic: "",
-    project_id: "",
+    // project_id: "",
   });
 
   const usernameChange = (e) => {
-    setUser({ ...user, head: UUU._id });
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
@@ -38,33 +37,24 @@ const AddUserTeamModal = ({
   const submitForm = async (e) => {
     e.preventDefault();
 
-    const API = axios.create({
-      baseURL: "https://server-bt-tasks.onrender.com",
-    });
-
     API.post("/auth/register", user)
       .then((res) => {
         //console.log(`api data ${res.data}`);
         setAddUserModal(false);
         getTeamOfEmployee();
+        setUser({
+          name: "",
+          username: "",
+          password: "",
+          designation: "",
+          profilePic: "",
+          project_id: "",
+        });
       })
       .catch((e) => {
         console.log(e);
       });
-
-    setUser({
-      name: "",
-      username: "",
-      password: "",
-      role: "",
-      head: UUU._id,
-      designation: "",
-      profilePic: "",
-      project_id: "",
-    });
   };
-
-  // console.log(user);
 
   return (
     <>
@@ -95,8 +85,6 @@ const AddUserTeamModal = ({
             }}
           >
             <input
-              // placeholder="Name"
-              // className="form-input"
               type="text"
               onChange={usernameChange}
               name="name"
@@ -118,8 +106,6 @@ const AddUserTeamModal = ({
             }}
           >
             <input
-              // placeholder="Email"
-              // className="form-input"
               type="text"
               onChange={usernameChange}
               name="username"
@@ -138,8 +124,6 @@ const AddUserTeamModal = ({
             }}
           >
             <input
-              // placeholder="Password"
-              // className="form-input"
               type="text"
               onChange={usernameChange}
               name="password"
@@ -158,8 +142,6 @@ const AddUserTeamModal = ({
             }}
           >
             <input
-              // placeholder="Designation"
-              // className="form-input"
               type="text"
               onChange={usernameChange}
               name="designation"
@@ -171,49 +153,18 @@ const AddUserTeamModal = ({
             </span>
           </div>
 
-          {/* <div className="form-input-container">
-            <select
-              className="employee-type"
-              name="project_id"
-              onChange={usernameChange}
-            >
-              {teamLeaderTask?.map((each) => (
-                <>
-                  <option disabled selected hidden>
-                    Please select role of Employee
-                  </option>
-                  <option value={each.project_id}>{each.project_id}</option>
-                </>
-              ))}
-            </select>
-          </div> */}
-
           <FileBase64
             type="file"
             multiple={false}
             onDone={({ base64 }) => setUser({ ...user, profilePic: base64 })}
           />
 
-          <div className="inputBox">
-            <select
-              name="role"
-              onChange={usernameChange}
-              style={{
-                width: "107%",
-              }}
-            >
-              <option disabled selected hidden>
-                Please select role of Employee
-              </option>
-              <option value="employee">Employee</option>
-            </select>
-          </div>
           {user.name !== "" &&
             user.role !== "" &&
             user.username !== "" &&
             user.password && (
               <button className="login-btn" type="submit">
-                SignUp
+                Register an Employee
               </button>
             )}
         </form>

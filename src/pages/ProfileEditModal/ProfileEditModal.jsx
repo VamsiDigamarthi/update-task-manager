@@ -6,14 +6,15 @@ import FileBase64 from "react-file-base64";
 import { AiOutlineUser, AiOutlineAntDesign } from "react-icons/ai";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { API } from "../../data/apicall";
 
 const ProfileEditModal = ({ editProfileModal, setEditProfileModal }) => {
   const UUU = useSelector((state) => state.authReducer.authData);
   const [userEdit, setUserEdit] = useState({
-    profilePic: UUU.profilePic,
-    name: UUU.name,
+    profilepic: UUU[0]?.profilepic,
+    name: UUU[0]?.name,
 
-    designation: UUU.designation,
+    designation: UUU[0]?.designation,
   });
 
   const usernameChange = (e) => {
@@ -22,29 +23,19 @@ const ProfileEditModal = ({ editProfileModal, setEditProfileModal }) => {
 
   const editSubmitTask = (e) => {
     e.preventDefault();
-    const id = UUU?._id;
-
-    const API = axios.create({
-      baseURL: "https://server-bt-tasks.onrender.com",
-    });
+    const id = UUU[0]?.id;
 
     API.put(`auth/profile/edit/${id}`, userEdit)
       .then((res) => {
-        //console.log("edit Success");
-        //getUserTask();
         setEditProfileModal(false);
         console.log(res.data);
       })
       .catch((e) => {
         console.log(e);
       });
-
-    // setUserEdit({ profilePic: "", name: "", designation: "" });
   };
 
   const theme = useMantineTheme();
-
-  // console.log(userEdit);
 
   return (
     <>
@@ -68,18 +59,6 @@ const ProfileEditModal = ({ editProfileModal, setEditProfileModal }) => {
         }}
       >
         <form onSubmit={editSubmitTask} className="profile-form">
-          {/* <div className="form-input-container">
-            <AiOutlineUser className="form-icons" />
-            <input
-              placeholder="Name"
-              className="form-input"
-              type="text"
-              onChange={usernameChange}
-              name="name"
-              value={userEdit.name}
-            />
-          </div> */}
-
           <div className="form-input-container1">
             <AiOutlineUser className="form-icons1" />
             <input
@@ -107,9 +86,9 @@ const ProfileEditModal = ({ editProfileModal, setEditProfileModal }) => {
             type="file"
             multiple={false}
             className="file-card"
-            value={userEdit.profilePic}
+            value={userEdit.profilepic}
             onDone={({ base64 }) =>
-              setUserEdit({ ...userEdit, profilePic: base64 })
+              setUserEdit({ ...userEdit, profilepic: base64 })
             }
           />
           <button

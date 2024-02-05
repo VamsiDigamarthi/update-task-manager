@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import Header from "../Header";
 import AdminDeleteTeamsModal from "../AdminDeleteTeamsModal";
+import { API } from "../../data/apicall";
 
 const SuperAdmin = ({ changeDarkMode, darkMode }) => {
   const [superAdminModal, setSuperAdminModal] = useState(false);
@@ -31,11 +32,11 @@ const SuperAdmin = ({ changeDarkMode, darkMode }) => {
   };
 
   const getAllTeamsByAdmin = () => {
-    const API = axios.create({
-      baseURL: "https://server-bt-tasks.onrender.com",
-    });
+    // const API = axios.create({
+    //   baseURL: "http:localhost:5001",
+    // });
 
-    API.get(`team/admin/team/${UUU._id}`)
+    API.get(`team/admin/team/${UUU[0]?.id}`)
       .then((res) => {
         setAllAdmindata(res.data);
       })
@@ -58,7 +59,7 @@ const SuperAdmin = ({ changeDarkMode, darkMode }) => {
     getAllTeamsByAdmin();
   }, []);
 
-  //console.log(UUU);
+  console.log(allAdmindata);
 
   return (
     <>
@@ -67,22 +68,6 @@ const SuperAdmin = ({ changeDarkMode, darkMode }) => {
           <Header changeDarkMode={changeDarkMode} darkMode={darkMode} />
         </div>
         <div className="super-admin-second-page">
-          {/* <div className="hea">
-            <div className="employee-serach-container eeeeee">
-              <div>
-                <input type="text" className="change" placeholder="search" />
-                <div>
-                  <BiSearchAlt className="employee-seacrh-icon" />
-                </div>
-              </div>
-            </div>
-            <div>
-              <FiMoon className="header-icons" />
-              <CiSettings className="header-icons" />
-              <AiOutlineUser className="header-icons" />
-            </div>
-          </div> */}
-
           <div className="btndiv">
             {/* <div className="super-admin-img-container">
               <img
@@ -107,7 +92,7 @@ const SuperAdmin = ({ changeDarkMode, darkMode }) => {
               <img
                 className="admin-image"
                 src={UUU.profilePic} //"https://i.pinimg.com/736x/52/29/5f/52295fa7746c2d69256c25a88b6343f4.jpg"
-                alt="admin-image"
+                alt="super"
               />
               <div>
                 {/* {i.name.charAt(0).toUpperCase() + i.name.slice(1)} */}
@@ -116,7 +101,7 @@ const SuperAdmin = ({ changeDarkMode, darkMode }) => {
               </div>
             </div>
             <button onClick={superAdminAddedAdmin} className="spabutton">
-              Add Admin
+              create Admin
             </button>
           </div>
           <div className="admin-employee-f-container">
@@ -124,11 +109,12 @@ const SuperAdmin = ({ changeDarkMode, darkMode }) => {
               <div key={index} className="admin-employess-s-container">
                 <img
                   className="admin-employee-images-card"
-                  src={each.profilePic}
+                  src={each.profilepic}
+                  alt=""
                 />
                 <div className="admin-team-delete">
                   <RiDeleteBin5Line
-                    id={each._id}
+                    // id={each._id}
                     onClick={deletedAdminToTeamLeadr}
                   />
                 </div>

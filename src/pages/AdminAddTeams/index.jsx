@@ -6,25 +6,18 @@ import { RiLockPasswordLine, RiTeamLine } from "react-icons/ri";
 import FileBase64 from "react-file-base64";
 import "./index.css";
 import { useSelector } from "react-redux";
-import axios from "axios";
+
+import { API } from "../../data/apicall";
 
 const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
   const UUU = useSelector((state) => state.authReducer.authData);
 
-  //   console.log(UUU);
-  //console.log(UUU._id);
-
-  //const [profilePic, setProfilePic] = useState("");
-
   const [user, setUser] = useState({
-    head: UUU._id,
+    head: UUU[0]?.id,
     name: "",
-
-    //head: UUU.role,
-
     username: "",
     password: "",
-    role: "",
+    role: "teamleader",
     designation: "",
     profilePic: "",
   });
@@ -35,35 +28,18 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
   // setHead();
 
   const usernameChange = (e) => {
-    // setUser({ ...user, head: UUU.role });
-    setUser({ ...user, head: UUU._id });
     setUser({ ...user, [e.target.name]: e.target.value });
-
-    // if(e.target.files && e.target.files[0]){
-
-    // }
   };
-
-  // const profilePicChange = (e) => {
-  //   setProfilePic(e.target.files[0]);
-  //   //setUser({ ...user, profilePic: e.target.files[0] });
-  // };
 
   const theme = useMantineTheme();
 
   const submitForm = async (e) => {
     e.preventDefault();
 
-    const API = axios.create({
-      baseURL: "https://server-bt-tasks.onrender.com",
-    });
-
     API.post("/auth/register", user)
       .then((res) => {
-        //console.log(`api data ${res.data}`);
         setAddTeams(false);
-        // setAddUserModal(false);
-        // getTeamOfEmployee();
+        console.log(res.data);
         getAllTeamsByAdmin();
       })
       .catch((e) => {
@@ -74,9 +50,7 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
       name: "",
       username: "",
       password: "",
-      role: "",
       designation: "",
-      head: UUU._id,
       profilePic: "",
     });
   };
@@ -114,16 +88,11 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
         >
           <div
             className="inputBox"
-            // style={{
-            //   border: user.name === "" ? "1px solid red" : "",
-            // }}
             style={{
               width: "100%",
             }}
           >
             <input
-              // placeholder="Name"
-              // className="form-input1"
               type="text"
               onChange={usernameChange}
               name="name"
@@ -142,8 +111,6 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
             }}
           >
             <input
-              // placeholder="Email"
-              // className="form-input1"
               type="text"
               onChange={usernameChange}
               name="username"
@@ -162,7 +129,6 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
             }}
           >
             <input
-              // className="form-input1"
               type="password"
               onChange={usernameChange}
               name="password"
@@ -181,20 +147,13 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
             }}
           >
             <input
-              // className="form-input1"
               type="text"
               onChange={usernameChange}
               name="designation"
               value={user.designation}
               required="required"
             />
-            <span
-            // style={{
-            //   display: "flex",
-            //   justifyContent: "space-between",
-            //   alignItems: "center",
-            // }}
-            >
+            <span>
               <AiOutlineAntDesign className="form-icons1" /> Designation
             </span>
           </div>
@@ -205,19 +164,6 @@ const AdminAddTeams = ({ addTeams, setAddTeams, getAllTeamsByAdmin }) => {
             onDone={({ base64 }) => setUser({ ...user, profilePic: base64 })}
           />
 
-          <div className="inputBox">
-            <select
-              // className="employee-type"
-              name="role"
-              onChange={usernameChange}
-              required="required"
-            >
-              <option disabled selected hidden>
-                Please select role of Employee
-              </option>
-              <option value="teamleader">Team Leades</option>
-            </select>
-          </div>
           {user.name !== "" &&
             user.role !== "" &&
             user.username !== "" &&

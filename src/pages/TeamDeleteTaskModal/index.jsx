@@ -3,6 +3,7 @@ import "./index.css";
 import { Modal, useMantineTheme } from "@mantine/core";
 import { RiDeleteBinLine } from "react-icons/ri";
 import axios from "axios";
+import { API } from "../../data/apicall";
 function TeamDeleteTaskModal({
   teamDeleteTask,
   setTeamDeleteTask,
@@ -13,15 +14,16 @@ function TeamDeleteTaskModal({
   //   const [opened, { open, close }] = useDisclosure(false);
   // const id = deletedTaskDetails?._id;
   // console.log(id);
+  // console.log(deletedTaskDetails);
   const theme = useMantineTheme();
-  const { _id, name } = deletedTaskDetails;
+  const { id, name } = deletedTaskDetails;
   const deleteTaskButton = (e) => {
     e.preventDefault();
     const deleteTask = () => {
-      const API = axios.create({
-        baseURL: "https://server-bt-tasks.onrender.com",
-      });
-      API.delete(`/tasks/delete/${_id}`)
+      // const API = axios.create({
+      //   baseURL: "https://server-bt-tasks.onrender.com",
+      // });
+      API.delete(`/tasks/delete/${id}`)
         .then((res) => {
           // getUserTask();
           //console.log(res.data);
@@ -35,10 +37,7 @@ function TeamDeleteTaskModal({
     };
 
     const timerDeleteBasedOnTask = () => {
-      const API = axios.create({
-        baseURL: "https://server-bt-tasks.onrender.com",
-      });
-      API.delete(`time/delete/timer/${_id}`)
+      API.delete(`time/delete/timer/${id}`)
         .then((res) => {
           // getUserTask();
           console.log(res.data);

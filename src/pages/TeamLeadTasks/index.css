@@ -93,6 +93,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 99%;
 }
 
 .new-added-timer-card > div:nth-child(1) {

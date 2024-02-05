@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./index.css";
 
-import axios from "axios";
-
 import { Modal, useMantineTheme } from "@mantine/core";
+import { API } from "../../data/apicall";
 
 const ActualCreateDateModal = ({
   setActualCompletedDate,
@@ -23,15 +22,11 @@ const ActualCreateDateModal = ({
 
   // console.log(actualCompletedDateTaskDetails);
 
-  const id = actualCompletedDateTaskDetails[0]?._id;
+  const id = actualCompletedDateTaskDetails?.id;
   // console.log(id);
 
   const actualDateAndExpertDateSubmit = (e) => {
     e.preventDefault();
-
-    const API = axios.create({
-      baseURL: "https://server-bt-tasks.onrender.com",
-    });
 
     API.post(`tasks/actual/date/${id}`, actualDate)
       .then((res) => {
@@ -68,20 +63,19 @@ const ActualCreateDateModal = ({
         }}
       >
         <form onSubmit={actualDateAndExpertDateSubmit}>
-          {actualCompletedDateTaskDetails.map((each, index) => (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-              key={index}
-            >
-              <p>ProjectId : {each.project_id}</p>
-              <p>TaskName : {each.task}</p>
-              <p>Name : {each.username}</p>
-            </div>
-          ))}
+          {/* {actualCompletedDateTaskDetails.map((each, index) => ( */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <p>ProjectId : {actualCompletedDateTaskDetails.project_id}</p>
+            <p>TaskName : {actualCompletedDateTaskDetails.task}</p>
+            <p>Name : {actualCompletedDateTaskDetails.username}</p>
+          </div>
+          {/* ))} */}
           <div
             className="modal-input-text  date-input"
             style={{

@@ -16,6 +16,7 @@ import { GoProject } from "react-icons/go";
 
 import ReactApexChart from "react-apexcharts";
 import ProjectIdModal from "../ProjectIdModal/projectIdModal";
+import { API } from "../../data/apicall";
 
 const Teams = ({ changeDarkMode, darkMode }) => {
   // teams leader states
@@ -159,43 +160,22 @@ const Teams = ({ changeDarkMode, darkMode }) => {
   //const { _id } = nameValue;
 
   const teamUserAccess =
-    UUU.role === "admin" ? { role: nameValue?._id } : { role: UUU._id }; //{ role: UUU.role };   --- "" replace { role: nameValue?._id }
+    UUU[0]?.role === "admin" ? { role: nameValue?._id } : { role: UUU[0]?.id }; //{ role: UUU.role };   --- "" replace { role: nameValue?._id }
+
+  // console.log(teamUserAccess);
 
   // acces team leader and there task only
   const adminAndTams =
-    UUU.role === "admin" ? { role: adminChangeTeamValue } : { role: UUU._id }; //{ role: UUU.role };
+    UUU[0]?.role === "admin"
+      ? { role: adminChangeTeamValue }
+      : { role: UUU[0]?.id }; //{ role: UUU.role };
   //
   // ========================------------==================================--------------------------========
   // by click the employee corresponding task loaded apis start
-  //
-  //
-  //
-
-  const getTeamOfTeaks = async (n) => {
-    const role = { username: n };
-    const API = axios.create({
-      baseURL: "https://server-bt-tasks.onrender.com",
-    });
-    // API.post("/tasks/employee", role)
-    //   .then((res) => {
-    //     setTeamAllTask(res.data);
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
-    //const API = axios.create({ baseURL: "http://localhost:5000" });
-    API.post("/tasks/teamleader/task", role)
-      .then((res) => {
-        setTeamAllTask(res.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
 
   const getData = (n) => {
     //console.log(`===${n}`);
-    getTeamOfTeaks(n);
+    // getTeamOfTeaks(n);
     setClickUserHighletColor(true);
     setClickUserHighletColorByName(n);
     setTotalCalHour("");
@@ -258,30 +238,18 @@ const Teams = ({ changeDarkMode, darkMode }) => {
   //
   //
 
+  // $$$$$$$$$$$$$$$$$$$$$$ admin drop down
+
   const adminChangeTeam = (e) => {
-    //setTeamUserList([]);
+    console.log(e.target.value);
     setCurrentItems([]);
     setAdminChangeTeamValue(e.target.value);
-    //console.log(e.target.value);
   };
-
-  //
-  //
-  // admin change dropdown corresponding teams display end
-
-  // team leader all employess get api call start container
-  //
-  //
-  //
 
   //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
   // team leader employees fetch api call change to specific project click corresponding employee fecth
 
   const getTeamOfEmployee = async () => {
-    const API = axios.create({
-      baseURL: "https://server-bt-tasks.onrender.com",
-    });
-
     API.post("/team/user", teamUserAccess)
       .then((res) => {
         setTeamUserList(res.data);
@@ -298,7 +266,8 @@ const Teams = ({ changeDarkMode, darkMode }) => {
 
   useEffect(() => {
     getTeamOfEmployee();
-    getTeamOfTeaks();
+    // getTeamOfTeaks();
+    getUserTask();
   }, [adminGetOneTeam]);
 
   // admindrop down change corresponding employes get useEffect end
@@ -314,26 +283,10 @@ const Teams = ({ changeDarkMode, darkMode }) => {
   //
 
   const getUserTask = async () => {
-    // const userName = { name: UUU.name };
-
-    // const API = axios.create({ baseURL: "http://localhost:5000" });
-
-    // API.post("/tasks/employee", userName)
-    //   .then((res) => {
-    //     setTeamLeaderTask(res.data);
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
-
     // new addedd get team taskd
 
-    const userName = { username: UUU.username };
-
-    const API = axios.create({
-      baseURL: "https://server-bt-tasks.onrender.com",
-    });
-
+    const userName = { username: UUU[0]?.username };
+    // console.log(userName);
     API.post("/tasks/teamleader/task", userName)
       .then((res) => {
         setTeamLeaderTask(res.data);
@@ -342,20 +295,6 @@ const Teams = ({ changeDarkMode, darkMode }) => {
         console.log(e);
       });
   };
-
-  //
-  //
-  //
-  // get team leader all task fetch api start container  --if login as team leader--
-  // -------------------------------------------------------------------------------------
-
-  // const teamDeleteTaskFromId = (e) => {
-  //   const deleteTask = teamAllTask.filter(
-  //     (each) => each._id === e.currentTarget.id
-  //   );
-  //   setTeamDeleteTask(true);
-  //   setDeletedTaskDetails(deleteTask[0]);
-  // };
 
   // ====================================================================
   //
@@ -376,21 +315,10 @@ const Teams = ({ changeDarkMode, darkMode }) => {
 
   useEffect(() => {
     // get team leader task container start --if login as admin--
+    // $$$$$$$$$$$$$$$$$$$$$$$$$$ admin apic
     const getVVVaa = () => {
       if (UUU.role === "admin" && adminGetOneTeam.length !== 0) {
         const nameValue = adminGetOneTeam[0];
-        // const { name } = nameValue;
-        // console.log(name)
-        // const userName =
-        //   UUU.role === "admin" ? { name: name } : { name: UUU.name };
-        // const API = axios.create({ baseURL: "http://localhost:5000" });
-        // API.post("/tasks/employee", userName)
-        //   .then((res) => {
-        //     setTeamLeaderTask(res.data);
-        //   })
-        //   .catch((e) => {
-        //     console.log(e);
-        //   });
 
         //==============================================
 
@@ -422,7 +350,7 @@ const Teams = ({ changeDarkMode, darkMode }) => {
 
     //==============================================================================
     // login admin show the team leader in drop down list start container
-
+    // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ admin apis
     if (UUU.role === "admin") {
       const adminrole = { role: UUU.role };
 
@@ -431,17 +359,6 @@ const Teams = ({ changeDarkMode, darkMode }) => {
           baseURL: "https://server-bt-tasks.onrender.com",
         });
         // if admin open drop down add select team old modal
-
-        // API.post("/team/user", adminrole)
-        //   .then((res) => {
-        //     setAdminTeams(res.data);
-        //   })
-
-        //   .catch((e) => {
-        //     console.log(e);
-        //   });
-
-        // ============
 
         // ======== admin fetch data based on admin id
 
@@ -477,46 +394,17 @@ const Teams = ({ changeDarkMode, darkMode }) => {
         });
     };
     getOneTeamLeader();
+    // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ admin apis
 
     // api call fetch team leader data end
   }, [adminChangeTeamValue]);
 
   const v = Math.ceil(teamUserList.length / pageSize);
 
-  //console.log(deletedTaskDetails);
-
-  //console.log(teamLeaderTask);
-
-  // const getTeamTaskCalHour = (r, p, b) => {
-  //   // console.log(r, p);
-  //   const date1 = new Date(r);
-  //   const date2 = new Date(p);
-  //   const date3 = new Date(b);
-  //   const diffTime = Math.abs(date2 - date1);
-  //   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-  //   const diffTime1 = Math.abs(date3 - date1);
-  //   const diffDays1 = Math.ceil(diffTime1 / (1000 * 60 * 60 * 24));
-
-  //   // console.log(diffTime + " milliseconds");
-  //   // console.log(diffDays + " days");
-  //   // console.log(diffDays * 24);
-  //   setTotalCalHour(diffDays * 8);
-  //   setCompletedHour(diffDays1 * 8);
-  // };
-
   const projectIdValueUpdate = (id) => {
     setProjectModal(true);
     setProjectSetUserId(id);
   };
-
-  //console.log(`teamuser list ${teamUserList}`);
-  //console.log(teamUserList);
-  //console.log(nameValue);
-
-  //console.log(teamLeaderTask);
-
-  //console.log(UUU);
 
   return (
     <div className="teams">
@@ -532,19 +420,8 @@ const Teams = ({ changeDarkMode, darkMode }) => {
               marginTop: "30px",
             }}
           >
-            {/* <div style={{ lineHeight: "0.4", display: "flex", gap: "1.3rem" }}>
-              
-              <img className="pic-img" src={UUU.profilePic} alt="pic" />
-              <div>
-                <h4 style={{ color: "#d6385d" }}>
-                  {UUU.name.charAt(0).toUpperCase() + UUU.name.slice(1)}
-                </h4>
-                <p>{UUU.designation}</p>
-              </div>
-            </div> */}
-
             <div className="employee-image-container">
-              <img className="new-pic-img" src={UUU.profilePic} alt="pic" />
+              <img className="new-pic-img" src={UUU[0]?.profilepic} alt="pic" />
               <div>
                 <h3
                   className="employee-name"
@@ -552,14 +429,14 @@ const Teams = ({ changeDarkMode, darkMode }) => {
                     color: fontColor,
                   }}
                 >
-                  {UUU.name.charAt(0).toUpperCase() + UUU.name.slice(1)}
+                  {UUU[0]?.name.charAt(0).toUpperCase() + UUU[0]?.name.slice(1)}
                 </h3>
                 <p
                   style={{
                     color: fontColor,
                   }}
                 >
-                  {UUU.designation}
+                  {UUU[0]?.designation}
                 </p>
               </div>
             </div>
@@ -585,12 +462,12 @@ const Teams = ({ changeDarkMode, darkMode }) => {
                       color: darkMode ? "#ffffff" : "",
                     }}
                   >
-                    Add User
+                    Add an Employee
                   </button>
                 </div>
                 <button className="add-task-button">
                   <button onClick={() => setTaskAddModal(true)}>
-                    Add Users Task
+                    Add Task to Users
                   </button>
                 </button>
               </div>
@@ -655,6 +532,7 @@ const Teams = ({ changeDarkMode, darkMode }) => {
                 {/* page count user list add */}
                 {currentItems.map((i, index) => (
                   <div
+                    key={index}
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
@@ -677,7 +555,7 @@ const Teams = ({ changeDarkMode, darkMode }) => {
                       }}
                     >
                       <img
-                        src={i.profilePic} //"./images/photo-1494790108377-be9c29b29330.jpg"
+                        src={i.profilepic} //"./images/photo-1494790108377-be9c29b29330.jpg"
                         className="avatar"
                         alt="avatar"
                       />
@@ -780,79 +658,7 @@ const Teams = ({ changeDarkMode, darkMode }) => {
           {/* add team leader end */}
 
           {/* employee all task by click employee image start container */}
-          {teamAllTask.length !== 0 ? (
-            <>
-              {/* <table className="content-table">
-                <thead>
-                  <tr>
-                    <th>Task</th>
-                    <th>Create</th>
-                    <th>Update</th>
-                    <th>Expert Date</th>
-                    <th>Status</th>
-                    <th>Details</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {teamAllTask.map((each) => (
-                    <tr
-                      onClick={() =>
-                        getTeamTaskCalHour(
-                          each.createdate,
-                          each.date,
-                          each.updatedAt
-                        )
-                      }
-                    >
-                      <td>{each.task}</td>
-                      <td>{each.createdate}</td>
-                      <td>{each.updatedAt.slice(0, 10)}</td>
-                      <td>{each.date}</td>
-                      <td>
-                        <div
-                          style={{
-                            backgroundColor:
-                              each.status === "completed"
-                                ? "#0a5c0d" //"#14e610"
-                                : each.status === "In-completed"
-                                ? "#b52134"
-                                : "#b8ad14",
-                            // ? "#14e610"
-
-                            // : "#f53858",
-                            fontSize: "16px",
-                            fontWeight: 400,
-                            padding: "2px",
-                            color: "#ffffff",
-                            paddingLeft: "19px",
-                            borderTopRightRadius: "10px",
-                            borderBottomRightRadius: "10px",
-                            borderTopLeftRadius: "7px",
-                          }}
-                        >
-                          {each.status}
-                        </div>
-                      </td>
-                      <td>
-                        <BiDetail
-                          id={each._id}
-                          onClick={detailsAndModel}
-                          style={{ cursor: "pointer" }}
-                        />
-                        <AiOutlineDelete
-                          id={each._id}
-                          style={{ margin: "0px 18px" }}
-                          // onClick={teamDeleteTaskFromId}
-                        />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table> */}
-            </>
-          ) : (
-            ""
-          )}
+          {teamAllTask.length !== 0 ? <>""</> : ""}
           {/* employee all task end container */}
 
           {/* details and edit modals start container */}
@@ -869,9 +675,10 @@ const Teams = ({ changeDarkMode, darkMode }) => {
           <EmployeAddModal
             taskAddModal={taskAddModal}
             setTaskAddModal={setTaskAddModal}
-            teamUserList={teamUserList}
-            getTeamOfTeaks={getTeamOfTeaks}
-            teamLeaderTask={teamLeaderTask}
+            teamUserList={teamUserList} //user list show drop down form added task
+            // getTeamOfTeaks={getTeamOfTeaks}
+            getTeamOfTeaks={getUserTask} // teamleader task
+            teamLeaderTask={teamLeaderTask} //completed
           />
 
           {/* employee add task modal end */}

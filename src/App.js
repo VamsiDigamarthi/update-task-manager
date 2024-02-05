@@ -40,9 +40,10 @@ function App() {
 
   let CURRENT_USER = null;
   if (UUU) {
-    CURRENT_USER = UUU.role;
+    CURRENT_USER = UUU[0]?.role;
     // console.log(CURRENT_USER);
   }
+  // console.log(UUU);
 
   return (
     <div className="body">
@@ -100,13 +101,6 @@ function App() {
                 )
               }
             />
-
-            {/* <Route
-              path="/employee"
-              element={
-                <Users changeDarkMode={changeDarkMode} darkMode={darkMode} />
-              }
-            /> */}
 
             <Route
               path="/dashboard"

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./index.css";
-
+import { API } from "../../data/apicall";
 import { Modal, useMantineTheme } from "@mantine/core";
 import axios from "axios";
 
@@ -21,11 +21,13 @@ const UserEditModal = ({
 
   // const editChangeValue = { status: edit };
 
+  // console.log(edit);
+
   const editSubmitTask = (e) => {
     e.preventDefault();
-    const API = axios.create({
-      baseURL: "https://server-bt-tasks.onrender.com",
-    });
+    // const API = axios.create({
+    //   baseURL: "https://server-bt-tasks.onrender.com",
+    // });
     API.put(`/tasks/${editUserTask}`, edit)
       .then((res) => {
         //console.log("edit Success");
@@ -39,7 +41,7 @@ const UserEditModal = ({
 
   const theme = useMantineTheme();
 
-  console.log(edit);
+  // console.log(edit);
 
   return (
     <>

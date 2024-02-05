@@ -124,11 +124,25 @@
   width: 200px;
 }
 
+.search-edit-profile-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  /* border: 1px solid black; */
+}
+.search-edit-profile-container > :nth-child(1) {
+  width: 10%;
+}
+
+.search-edit-profile-container > :nth-child(2) {
+  width: 35%;
+}
 .employee-serach-container {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  width: 100%;
+  width: 50%;
   position: relative;
 }
 
@@ -139,6 +153,7 @@
   height: 30px;
   width: 100%;
   border-radius: 5px;
+  /* background-color: red; */
 }
 
 .employee-serach-container > div > input {
@@ -166,14 +181,6 @@
   color: white;
   color: rgb(37, 51, 58);
   /* background-color: rgb(37, 51, 58); */
-}
-
-.search-edit-profile-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  /* border: 1px solid black; */
 }
 
 .profile-edit-image {

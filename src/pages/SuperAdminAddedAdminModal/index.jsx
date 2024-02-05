@@ -7,6 +7,7 @@ import FileBase64 from "react-file-base64";
 import "./index.css";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { API } from "../../data/apicall";
 
 const SuperAdminAddedAdminModal = ({
   superAdminModal,
@@ -21,54 +22,31 @@ const SuperAdminAddedAdminModal = ({
   //const [profilePic, setProfilePic] = useState("");
 
   const [user, setUser] = useState({
-    head: UUU._id,
+    head: UUU[0]?.id,
     name: "",
-
-    //head: UUU.role,
-
     username: "",
     password: "",
-    role: "",
+    role: "admin",
     designation: "",
     profilePic: "",
   });
 
-  // const setHead = () => {
-  //   setUser({ ...user, head: UUU._id });
-  // };
-  // setHead();
-
   const usernameChange = (e) => {
-    // setUser({ ...user, head: UUU.role });
-    setUser({ ...user, head: UUU._id });
     setUser({ ...user, [e.target.name]: e.target.value });
-
-    // if(e.target.files && e.target.files[0]){
-
-    // }
   };
-
-  // const profilePicChange = (e) => {
-  //   setProfilePic(e.target.files[0]);
-  //   //setUser({ ...user, profilePic: e.target.files[0] });
-  // };
 
   const theme = useMantineTheme();
 
   const submitForm = async (e) => {
     e.preventDefault();
 
-    const API = axios.create({
-      baseURL: "https://server-bt-tasks.onrender.com",
-    });
+    // const API = axios.create({
+    //   baseURL: "http:localhost",
+    // });
 
     API.post("/auth/register", user)
       .then((res) => {
-        //console.log(`api data ${res.data}`);
         setSuperAdminModal(false);
-        // setAddUserModal(false);
-        // getTeamOfEmployee();
-        // getAllTeamsByAdmin();
         getAllTeamsByAdmin();
       })
       .catch((e) => {
@@ -79,14 +57,12 @@ const SuperAdminAddedAdminModal = ({
       name: "",
       username: "",
       password: "",
-      role: "",
       designation: "",
-      head: UUU._id,
       profilePic: "",
     });
   };
 
-  //console.log(user);
+  console.log(user);
 
   return (
     <>
@@ -206,33 +182,7 @@ const SuperAdminAddedAdminModal = ({
             multiple={false}
             onDone={({ base64 }) => setUser({ ...user, profilePic: base64 })}
           />
-          {/* <div className="form-input-container">
-            <RiTeamLine className="form-icons" />
-            <input
-              placeholder="role"
-              className="form-input"
-              type="text"
-              onChange={usernameChange}
-              name="role"
-              value={user.role}
-            />
-          </div> */}
-          <div className="inputBox">
-            <select
-              // className="employee-type"
-              name="role"
-              onChange={usernameChange}
-              required="required"
-              style={{
-                width: "100%",
-              }}
-            >
-              <option disabled selected hidden>
-                Please select role of Employee
-              </option>
-              <option value="admin">Admin</option>
-            </select>
-          </div>
+
           {user.name !== "" &&
             user.role !== "" &&
             user.username !== "" &&

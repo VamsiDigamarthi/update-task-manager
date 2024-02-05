@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 import { Modal, useMantineTheme } from "@mantine/core";
+import { API } from "../../data/apicall";
 
 const AdminAddTaskToTeam = ({
   adminAddTask,
@@ -12,15 +13,14 @@ const AdminAddTaskToTeam = ({
   const UUU = useSelector((state) => state.authReducer.authData);
 
   const [taskAdd, setTaskAddr] = useState({
-    head: UUU._id,
+    head: UUU[0]?.id,
     task: "",
-    status: "",
+    status: "In-completed",
     username: "",
     description: "",
     date: "",
     createdate: "",
     project_id: "",
-    //head: UUU.role,
   });
 
   const taskAddFun = (e) => {
@@ -30,37 +30,29 @@ const AdminAddTaskToTeam = ({
   const addTaskSubmit = (e) => {
     e.preventDefault();
 
-    const API = axios.create({
-      baseURL: "https://server-bt-tasks.onrender.com",
-    });
-
     API.post("/tasks/addtaks", taskAdd)
       .then((res) => {
         //console.log(res.data);
 
         setAdminAddTask(false);
-        // getTeamOfTeaks();
       })
       .catch((e) => {
         console.log(e);
       });
     setTaskAddr({
       task: "",
-      status: "",
       username: "",
       description: "",
       date: "",
-      // new addded
       head: UUU.role,
       createdate: "",
       project_id: "",
-      //head: UUU._id,
     });
   };
 
   const theme = useMantineTheme();
 
-  //console.log(taskAdd);
+  // console.log(taskAdd);
 
   return (
     <>
@@ -127,7 +119,7 @@ const AdminAddTaskToTeam = ({
                 />
                 <span>project-name</span>
               </div>
-              <div className="radios-buttons">
+              {/* <div className="radios-buttons">
                 <label htmlfor="incomplete">incompleted</label>
                 <input
                   id="incomplete"
@@ -136,7 +128,7 @@ const AdminAddTaskToTeam = ({
                   type="checkbox"
                   value="In-completed"
                 />
-              </div>
+              </div> */}
             </div>
 
             <div
@@ -185,7 +177,7 @@ const AdminAddTaskToTeam = ({
               required="required"
               // className="modal-input-text  date-input"
             />
-            <span>Create Date :</span>
+            <span>Create Task Date :</span>
           </div>
           <div
             className="inputBox"
@@ -204,7 +196,7 @@ const AdminAddTaskToTeam = ({
               required="required"
               // className="modal-input-text  date-input"
             />
-            <span>Expert Date</span>
+            <span>Expert to Completed Task Date</span>
           </div>
           <textarea
             name="description"

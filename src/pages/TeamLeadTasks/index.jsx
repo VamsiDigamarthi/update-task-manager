@@ -17,6 +17,7 @@ import axios from "axios";
 import TimerAllDetailsModal from "../TimerAllDetailsModal/TimerAllDetailsModal";
 import ActualCreateDateModal from "../ActualCreateDateModal/ActualCreateDateModal";
 import TimerChart from "../TimerChart/TimerChart";
+import { API } from "../../data/apicall";
 
 function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
   const UUU = useSelector((state) => state.authReducer.authData);
@@ -129,47 +130,38 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
     allCalculation();
   }, [teamAllTask]);
 
-  const detailsAndModels = (event) => {
-    const desc = teamAllTask.filter(
-      (each) => each._id === event.currentTarget.id
-    );
+  const detailsAndModels = (each) => {
     //console.log(desc[0].description);
-    setDescription(desc[0].description);
+    setDescription(each?.description);
     setModal(true);
-    setDescEditIdValue(desc[0]._id);
+    setDescEditIdValue(each?.id);
 
     //console.log(desc[0]);
   };
 
   // delete task
 
-  const teamDeleteTaskFromIds = (e) => {
-    const deleteTask = teamAllTask.filter(
-      (each) => each._id === e.currentTarget.id
-    );
+  const teamDeleteTaskFromIds = (each) => {
     setTeamDeleteTask(true);
-    setDeletedTaskDetails(deleteTask[0]);
+    setDeletedTaskDetails(each);
   };
 
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  const detailsAndModel = (event) => {
-    const desc = teamLeaderTask.filter(
-      (each) => each._id === event.currentTarget.id
-    );
-    //console.log(desc[0].description);
-    setDescription(desc[0].description);
+  const detailsAndModel = (value) => {
+    setDescription(value?.description);
     setModal(true);
     //console.log(desc[0]);
-    setDescEditIdValue(desc[0]._id);
+    setDescEditIdValue(value?.id);
   };
 
-  const editAndModel = (e) => {
-    const edit = teamLeaderTask.filter(
-      (each) => each._id === e.currentTarget.id
-    );
+  const editAndModel = (value) => {
+    // console.log(value);
+    // const edit = teamLeaderTask.filter(
+    //   (each) => each._id === e.currentTarget.id
+    // );
 
-    setEditUserTask(edit);
+    setEditUserTask(value);
     setEditModal(true);
   };
 
@@ -184,15 +176,16 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
   };
 
   const basedOnProjectUserGet = (id) => {
-    const API = axios.create({
-      baseURL: "https://server-bt-tasks.onrender.com",
-    });
+    console.log(id);
+    // const API = axios.create({
+    //   baseURL: "https://server-bt-tasks.onrender.com",
+    // });
     API.get(`auth/project/click/user/${id}`)
       .then((res) => {
         //setTeamUserList(res.data);
         // console.log(res.data);
         setUserListBasedOnProjectClick(res.data);
-        setTeamAllTask([]);
+        // setTeamAllTask([]);
         //res.data;
       })
 
@@ -202,9 +195,9 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
   };
 
   const basedOnProjectClickCorreTimerGet = (id) => {
-    const API = axios.create({
-      baseURL: "https://server-bt-tasks.onrender.com",
-    });
+    // const API = axios.create({
+    //   baseURL: "https://server-bt-tasks.onrender.com",
+    // });
     API.get(`/time/value/${id}`)
       .then((res) => {
         //setTeamUserList(res.data);
@@ -220,27 +213,21 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
   // new added timer values
   // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  // timer chat calculation change and duplicates remove form fetching data table
-
   let timerAllValue = 0;
 
   let newArray = [];
 
   let uniqueObject = {};
 
-  // for (let i in timeValuesCalProject) {
-  //   const objTitle = timeValuesCalProject[i]["taskValue"];
-
-  //   uniqueObject[objTitle] = timeValuesCalProject[i];
-  // }
-
   timeValuesCalProject?.map((each, i) => {
     // if (each.timer.split("-")[1] === 0) {
     //   console.log("r is zero");
     // }
     //console.log(each.timer);
+    //
+
     if (each.timer?.split("-")[1] === "0") {
-      console.log("j");
+      console.log(each.name);
     } else {
       const objTitle = timeValuesCalProject[i]["taskValue"];
 
@@ -251,7 +238,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
   for (let i in uniqueObject) {
     newArray.push(uniqueObject[i]);
   }
-
+  // console.log(newArray);
   newArray?.forEach((each) => {
     // filter the date in duplivates
 
@@ -283,12 +270,14 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
     actualComDate,
     actualExptDate
   ) => {
+    // console.log("task click");
+
     setTotalCalHour("");
     setCompletedHour("");
     setTimerStoreEmployeeTask([]);
     basedOnProjectUserGet(id);
-    basedOnProjectClickCorreTimerGet(id);
-    // console.log(r, p);
+    basedOnProjectClickCorreTimerGet(id); // project click corresponding id and api call function
+    setTeamAllTask([]);
     const date1 = new Date(create);
     const date2 = new Date(up);
     // const diffTime = Math.abs(date2 - date1);
@@ -556,16 +545,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
           totalHourTwinty = multipleOfElight + reminderOfTwintyFour;
           setTotalCalHour(totalHourTwinty);
         }
-        //
-        //
-        // setTotalCalHour(totalHourTwinty);
       }
-
-      // old calculations===============================================
-      // const diffTime = Math.abs(date2 - date1);
-      // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      // console.log("is  emplty else");
-      // setTotalCalHour(diffDays * 8);
     }
 
     //setTotalCalHour(diffDays * 8);
@@ -573,20 +553,10 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
 
   const getTeamOfTeaks = async (n) => {
     const role = { username: n };
-    const API = axios.create({
-      baseURL: "https://server-bt-tasks.onrender.com",
-    });
-    // API.post("/tasks/employee", role)
-    //   .then((res) => {
-    //     setTeamAllTask(res.data);
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
-    //const API = axios.create({ baseURL: "http://localhost:5000" });
+
     API.post("/tasks/teamleader/task", role)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setTeamAllTask(res.data);
       })
       .catch((e) => {
@@ -595,35 +565,31 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
   };
 
   const getData = (n) => {
-    //console.log(`===${n}`);
-    // setSearchTaskBasedOnProject("");
     getTeamOfTeaks(n);
-    // setClickUserHighletColor(true);
-    // setClickUserHighletColorByName(n);
-    // setTotalCalHour("");
-    // setCompletedHour("");
+
     setTimerStoreEmployeeTask([]);
   };
 
   // ftech the timer based on employee task
 
-  const fetchTheTimersBasedOnTask = (id) => {
-    setTimerStoreEmployeeTask([]);
-    const API = axios.create({
-      baseURL: "https://server-bt-tasks.onrender.com",
-    });
+  // const fetchTheTimersBasedOnTask = (id) => {
+  //   console.log(id);
+  //   setTimerStoreEmployeeTask([]);
+  //   // const API = axios.create({
+  //   //   baseURL: "https://server-bt-tasks.onrender.com",
+  //   // });
 
-    API.get(`/time/taskvalue/${id}`)
-      .then((res) => {
-        console.log(res.data[0]);
-        const arrayOfObject = res.data[0];
-        const array = Array(arrayOfObject);
-        setTimerStoreEmployeeTask(array);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+  //   API.get(`/time/taskvalue/${id}`)
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       // const arrayOfObject = res.data[0];
+  //       // const array = Array(arrayOfObject);
+  //       setTimerStoreEmployeeTask(res.data);
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // };
 
   //console.log(userListBasedOnProjectClick);
 
@@ -643,11 +609,11 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
     setActualCompletedDateTaskDetails(edit);
   };
 
-  const teamLeaderClickEditAccDateSet = (e) => {
-    const edit = teamAllTask.filter((each) => each._id === e.currentTarget.id);
-    //console.log(edit);
+  const teamLeaderClickEditAccDateSet = (each) => {
+    // const edit = teamAllTask.filter((each) => each._id === e.currentTarget.id);
+    // //console.log(edit);
     setActualCompletedDate(true);
-    setActualCompletedDateTaskDetails(edit);
+    setActualCompletedDateTaskDetails(each);
   };
 
   // console.log(timerStoreEmployeeTask);
@@ -678,7 +644,17 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
 
   // searchTaskBasedOnProject
 
-  // console.log(filterEmployeeTask);
+  // console.log(teamAllTask);
+
+  // console.log(userListBasedOnProjectClick);
+
+  const getEmployeProfileClickFilterTask = (username) => {
+    let filterTask = userListBasedOnProjectClick.filter(
+      (each) => each.username === username
+    );
+    // console.log(filterTask);
+    setTeamAllTask(filterTask);
+  };
 
   return (
     <div className="TeamLeadTaska">
@@ -780,11 +756,11 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
                     </div>
                   </td>
                   <td>
-                    <BiDetail id={each._id} onClick={detailsAndModel} />
+                    <BiDetail onClick={() => detailsAndModel(each)} />
                     {UUU.role !== "admin" ? (
                       <button
-                        id={each._id}
-                        onClick={editAndModel}
+                        // id={each?.id}
+                        onClick={() => editAndModel(each)}
                         disabled={each.status === "completed"}
                         style={{
                           background: "transparent",
@@ -803,12 +779,12 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
                     ) : (
                       <>
                         <RiDeleteBinLine
-                          id={each._id}
+                          id={each?.id}
                           style={{ margin: "0px 18px" }}
                           onClick={teamDeleteTaskFromId}
                         />
                         <FiEdit
-                          id={each._id}
+                          id={each?.id}
                           onClick={adminClickEditAccDateSet}
                           // style={{ marginLeft: "50px" }}
                         />
@@ -842,7 +818,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
             <UserEditModal
               editModal={editModal}
               setEditModal={setEditModal}
-              editUserTask={editUserTask[0]._id}
+              editUserTask={editUserTask?.id}
               getUserTask={getUserTask}
             />
           )}
@@ -945,20 +921,11 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
                   <li
                     //key={index}
                     className="user-card-container"
-                    onClick={() => getData(i.username)}
-                    // style={{
-                    //   backgroundColor:
-                    //     clickUserHighletColorByName === i.name &&
-                    //     clickUserHighletColor &&
-                    //     "#edeceb",
-                    //   borderRadius:
-                    //     clickUserHighletColorByName === i.name &&
-                    //     clickUserHighletColor &&
-                    //     "3px",
-                    // }}
+                    // onClick={() => getData(i.username)}
+                    onClick={() => getEmployeProfileClickFilterTask(i.username)}
                   >
                     <img
-                      src={i.profilePic} //"./images/photo-1494790108377-be9c29b29330.jpg"
+                      src={i.profilepic} //"./images/photo-1494790108377-be9c29b29330.jpg"
                       className="avatar"
                       alt="avatar"
                     />
@@ -986,7 +953,6 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
             )}
           </div>
         </div>
-        <div></div>
 
         {/* seacrh constainer start */}
 
@@ -1086,7 +1052,7 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
                 {teamAllTask?.map((each, index) => (
                   <tr
                     key={index}
-                    onClick={() => fetchTheTimersBasedOnTask(each._id)}
+                    // onClick={() => fetchTheTimersBasedOnTask(each?.id)}
                   >
                     <td>{each.project_id}</td>
                     <td>{each.task}</td>
@@ -1123,19 +1089,19 @@ function TeamLeadTaska({ teamLeaderTask, getUserTask, darkMode }) {
                     </td>
                     <td>
                       <BiDetail
-                        id={each._id}
-                        onClick={detailsAndModels}
+                        // id={each._id}
+                        onClick={() => detailsAndModels(each)}
                         style={{ cursor: "pointer" }}
                       />
                       <AiOutlineDelete
-                        id={each._id}
+                        // id={each._id}
                         style={{ margin: "0px 18px" }}
-                        onClick={teamDeleteTaskFromIds}
+                        onClick={() => teamDeleteTaskFromIds(each)}
                       />
                       {UUU.role !== "admin" && (
                         <FiEdit
-                          id={each._id}
-                          onClick={teamLeaderClickEditAccDateSet}
+                          // id={each._id}
+                          onClick={() => teamLeaderClickEditAccDateSet(each)}
                           // style={{ marginLeft: "50px" }}
                         />
                       )}

@@ -14,10 +14,10 @@ import { RiEdit2Line } from "react-icons/ri";
 import ProfileEditModal from "../ProfileEditModal/ProfileEditModal";
 import { motion } from "framer-motion";
 import "./index.css";
-
+import { API } from "../../data/apicall";
 const Users = ({ changeDarkMode, darkMode }) => {
   const UUU = useSelector((state) => state.authReducer.authData);
-  console.log(UUU);
+  // console.log(UUU);
 
   const transition = { type: "spring", duration: 3 };
 
@@ -59,39 +59,31 @@ const Users = ({ changeDarkMode, darkMode }) => {
     colors: ["#0a5c0d", "#b52134"], //#14e610  #f53858
   });
 
-  const editAndModel = (e) => {
-    const edit = userDataTask.filter((each) => each._id === e.currentTarget.id);
+  const editAndModel = (each) => {
+    // const edit = userDataTask.filter((each) => each._id === e.currentTarget.id);
 
-    setEditUserTask(edit);
+    setEditUserTask(each);
     setEditModal(true);
   };
 
   const u = localStorage.getItem("user");
 
   const detailsAndModel = (event) => {
-    const desc = userDataTask.filter(
-      (each) => each._id === event.currentTarget.id
-    );
+    // console.log(event);
+    // const desc = userDataTask.filter(
+    //   (each) => each[0]?.id === event.currentTarget.id
+    // );
+
     //console.log(desc[0].description);
-    setDescription(desc[0].description);
+    setDescription(event?.description);
     setModal(true);
-    setTaskDescId(desc[0]._id);
+    setTaskDescId(event?.id);
+    // console.log("details task modal");
   };
 
   const getUserTask = async () => {
-    const userName = { username: UUU.username };
-    const API = axios.create({
-      baseURL: "https://server-bt-tasks.onrender.com",
-    });
+    const userName = { username: UUU[0]?.username };
 
-    // API.post("/tasks/employee", userName)
-    //   .then((res) => {
-    //     setUserDataTask(res.data);
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
-    //console.log(userName);
     API.post("/tasks/teamleader/task", userName)
       .then((res) => {
         setUserDataTask(res.data);
@@ -142,17 +134,17 @@ const Users = ({ changeDarkMode, darkMode }) => {
       .toLocaleLowerCase()
       .includes(inputSearchValue.toLocaleLowerCase())
   );
-  //console.log(valuesFilter);
+  // console.log(valuesFilter);
 
   useEffect(() => {
-    const save = userDataTask?.forEach((each) => {
+    userDataTask?.forEach((each) => {
       setTotalCalHour("");
       setCompletedHour("");
       setTimerHour("");
 
       let total;
-      const date1 = new Date(each.createdate);
-      const date2 = new Date(each.date);
+      const date1 = new Date(each.createdate); // start date
+      const date2 = new Date(each.date); // exprected date
       const date3 =
         each.status === "completed" ? new Date(each.updatedDate) : "";
 
@@ -286,11 +278,6 @@ const Users = ({ changeDarkMode, darkMode }) => {
           //total = totalHourTwinty;
         }
       } else {
-        // const diffTime = Math.abs(date2 - date1);
-        // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        // total = diffDays * 8;
-        // console.log(total);
-
         // new added calculations
 
         let diff = (date2.getTime() - date1.getTime()) / 1000;
@@ -580,20 +567,20 @@ const Users = ({ changeDarkMode, darkMode }) => {
             setCompletedHour(rr);
             const values = {
               projectId: each.project_id,
-              taskValue: each._id,
+              taskValue: each.id,
               timer: rr,
               totalHour: total,
               taskName: each.task,
               userName: each.username,
             };
 
-            const API = axios.create({
-              baseURL: "https://server-bt-tasks.onrender.com",
-            });
+            // const API = axios.create({
+            //   baseURL: "https://server-bt-tasks.onrender.com",
+            // });
 
             API.post("/time/value", values)
               .then((res) => {
-                //console.log(res.data);
+                console.log(res.data);
               })
               .catch((e) => {
                 console.log(e);
@@ -746,20 +733,20 @@ const Users = ({ changeDarkMode, darkMode }) => {
             // const rr = diffDays1 * 8;
             const values = {
               projectId: each.project_id,
-              taskValue: each._id,
+              taskValue: each.id,
               timer: rr,
               totalHour: total,
               taskName: each.task,
               userName: each.username,
             };
 
-            const API = axios.create({
-              baseURL: "https://server-bt-tasks.onrender.com",
-            });
+            // const API = axios.create({
+            //   baseURL: "https://server-bt-tasks.onrender.com",
+            // });
 
             API.post("/time/value", values)
               .then((res) => {
-                //console.log(res.data);
+                console.log(res.data);
               })
               .catch((e) => {
                 console.log(e);
@@ -920,40 +907,40 @@ const Users = ({ changeDarkMode, darkMode }) => {
             setCompletedHour(rr);
             const values = {
               projectId: each.project_id,
-              taskValue: each._id,
+              taskValue: each.id,
               timer: rr,
               totalHour: total,
               taskName: each.task,
               userName: each.username,
             };
 
-            const API = axios.create({
-              baseURL: "https://server-bt-tasks.onrender.com",
-            });
+            // const API = axios.create({
+            //   baseURL: "https://server-bt-tasks.onrender.com",
+            // });
 
             API.post("/time/value", values)
               .then((res) => {
-                //console.log(res.data);
+                console.log(res.data);
               })
               .catch((e) => {
                 console.log(e);
               });
           } else {
             const values = {
-              taskValue: each._id,
+              taskValue: each.id,
               timer: "R-0",
               totalHour: total,
               taskName: each.task,
               userName: each.username,
             };
 
-            const API = axios.create({
-              baseURL: "https://server-bt-tasks.onrender.com",
-            });
+            // const API = axios.create({
+            //   baseURL: "https://server-bt-tasks.onrender.com",
+            // });
 
             API.post("/time/value", values)
               .then((res) => {
-                //console.log(res.data);
+                console.log(res.data);
               })
               .catch((e) => {
                 console.log(e);
@@ -1124,20 +1111,20 @@ const Users = ({ changeDarkMode, darkMode }) => {
             // const rr = `R-${diffDays * 8}`;
             const values = {
               projectId: each.project_id,
-              taskValue: each._id,
+              taskValue: each.id,
               timer: rr,
               totalHour: total,
               taskName: each.task,
               userName: each.username,
             };
 
-            const API = axios.create({
-              baseURL: "https://server-bt-tasks.onrender.com",
-            });
+            // const API = axios.create({
+            //   baseURL: "https://server-bt-tasks.onrender.com",
+            // });
 
             API.post("/time/value", values)
               .then((res) => {
-                //console.log(res.data);
+                console.log(res.data);
               })
               .catch((e) => {
                 console.log(e);
@@ -1145,24 +1132,23 @@ const Users = ({ changeDarkMode, darkMode }) => {
           }
         }
       }
-
-      // jkdjjjj
     });
   }, [userDataTask]);
 
   const fetchTheTimersBasedOnTask = (id) => {
-    const API = axios.create({
-      baseURL: "https://server-bt-tasks.onrender.com",
-    });
+    // console.log(id);
+    // const API = axios.create({
+    //   baseURL: "https://server-bt-tasks.onrender.com",
+    // });
 
     API.get(`/time/taskvalue/${id}`)
       .then((res) => {
-        //console.log(res.data[0]);
-        const arrayOfObject = res.data[0];
-        const array = Array(arrayOfObject);
+        // console.log(res.data);
+        // const arrayOfObject = res.data[0];
+        // const array = Array(arrayOfObject);
         //
         //console.log(array);
-        setUserTaskTimer(array);
+        setUserTaskTimer(res.data);
       })
       .catch((e) => {
         console.log(e);
@@ -1173,21 +1159,6 @@ const Users = ({ changeDarkMode, darkMode }) => {
     setEditProfileModal(true);
   };
 
-  const url = "http://localhost:4000/items";
-
-  // const doNetworkCall = async () => {
-  //   const response = await fetch(url);
-  //   const jsonData = await response.json();
-  //   console.log(jsonData);
-  // };
-
-  // const bt = async () => {
-  //   const response = await fetch(url);
-  //   const jsonData = await response.json();
-  //   console.log(jsonData);
-  //   console.log("bt");
-  // };
-
   return (
     <div className="new-user-component">
       <div className="new-header-user">
@@ -1196,7 +1167,7 @@ const Users = ({ changeDarkMode, darkMode }) => {
       {/* <button onClick={bt}>btn</button> */}
       <div className="user-name-container">
         <div className="employee-image-container">
-          <img className="new-pic-img" src={UUU.profilePic} alt="pic" />
+          <img className="new-pic-img" src={UUU[0]?.profilepic} alt="pic" />
           <div>
             <h3
               className="employee-name"
@@ -1204,14 +1175,14 @@ const Users = ({ changeDarkMode, darkMode }) => {
                 color: fontColor,
               }}
             >
-              {UUU.name.charAt(0).toUpperCase() + UUU.name.slice(1)}
+              {UUU[0]?.name.charAt(0).toUpperCase() + UUU[0]?.name.slice(1)}
             </h3>
             <p
               style={{
                 color: fontColor,
               }}
             >
-              {UUU.designation}
+              {UUU[0]?.designation}
             </p>
           </div>
         </div>
@@ -1342,7 +1313,7 @@ const Users = ({ changeDarkMode, darkMode }) => {
             {valuesFilter.map((each, index) => (
               <tr
                 key={index}
-                onClick={() => fetchTheTimersBasedOnTask(each._id)}
+                onClick={() => fetchTheTimersBasedOnTask(each?.id)}
               >
                 <td>{each.project_id}</td>
                 <td>{each.task}</td>
@@ -1376,13 +1347,13 @@ const Users = ({ changeDarkMode, darkMode }) => {
                 </td>
                 <td>
                   <BiDetail
-                    id={each._id}
-                    onClick={detailsAndModel}
+                    id={each?.id}
+                    onClick={() => detailsAndModel(each)}
                     style={{ cursor: "pointer" }}
                   />
                   <button
-                    id={each._id}
-                    onClick={editAndModel}
+                    id={each?.id}
+                    onClick={() => editAndModel(each)}
                     disabled={each.status === "completed"}
                     style={{
                       background: "transparent",
@@ -1416,7 +1387,7 @@ const Users = ({ changeDarkMode, darkMode }) => {
         <UserEditModal
           editModal={editModal}
           setEditModal={setEditModal}
-          editUserTask={editUserTask[0]._id}
+          editUserTask={editUserTask?.id}
           getUserTask={getUserTask}
         />
       )}

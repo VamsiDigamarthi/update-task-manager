@@ -12,6 +12,7 @@ import AdminAddTaskToTeam from "../AdminAddTaskToTeam";
 
 import { RiDeleteBin5Line } from "react-icons/ri";
 import AdminDeleteTeamsModal from "../AdminDeleteTeamsModal";
+import { API } from "../../data/apicall";
 
 const taskStatus = ["completed", "In-completed", "In-progress"];
 
@@ -43,41 +44,22 @@ const Admin = ({ changeDarkMode, darkMode }) => {
 
   const UUU = useSelector((state) => state.authReducer.authData);
 
-  const adminrole = { role: UUU.role };
-
   const getAllTeamsByAdmin = () => {
-    const API = axios.create({
-      baseURL: "https://server-bt-tasks.onrender.com",
-    });
-
-    // API.post("/team/user", adminrole)
-    //   .then((res) => {
-    //     // setTeamUserList(res.data);
-    //     setAdminAllTeams(res.data);
-    //   })
-
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
     setLoading(true);
-    API.get(`team/admin/team/${UUU._id}`)
+    API.get(`team/admin/team/${UUU[0]?.id}`)
       .then((res) => {
         // setTeamUserList(res.data);
-
+        // console.log(res.data);
         setAdminAllTeams(res.data);
         setLoading(false);
       })
-
       .catch((e) => {
         console.log(e);
       });
   };
 
   const accessAllProjectsToAdmin = () => {
-    const API = axios.create({
-      baseURL: "https://server-bt-tasks.onrender.com",
-    });
-    API.get(`/tasks/admin/allprojects/${UUU._id}`)
+    API.get(`/tasks/admin/allprojects/${UUU[0]?.id}`)
       .then((res) => {
         // setTeamUserList(res.data);
 
@@ -92,7 +74,7 @@ const Admin = ({ changeDarkMode, darkMode }) => {
 
   useEffect(() => {
     getAllTeamsByAdmin();
-    accessAllProjectsToAdmin();
+    // accessAllProjectsToAdmin();
   }, []);
 
   // console.log(adminAllTeams);
@@ -134,13 +116,13 @@ const Admin = ({ changeDarkMode, darkMode }) => {
         console.log(e);
       });
   };
-  console.log(adminClickSpecificTaskCoressTaskFetch);
+  // console.log(adminClickSpecificTaskCoressTaskFetch);
 
   // adminClickSpecificTaskCoressTaskFetch?.shift();
 
   let newArray = adminClickSpecificTaskCoressTaskFetch.slice(1);
 
-  console.log(newArray);
+  // console.log(newArray);
 
   const newArrayLength = newArray.length;
 
@@ -150,19 +132,6 @@ const Admin = ({ changeDarkMode, darkMode }) => {
 
   const fontColor = darkMode ? "#65a3c2" : "rgb(37, 51, 58)";
 
-  // console.log(newArrayLength);
-
-  // console.log(filterPieValue.length);
-
-  // if (newArrayLength && filterPieValue) {
-  //   setTotalTaskProject(newArrayLength);
-  //   setCompletedTaskProject(filterPieValue.length);
-  // }
-
-  // console.log(totalTaskProject);
-
-  // console.log(completedTaskProject);
-
   return (
     <>
       <div className="admin">
@@ -171,7 +140,7 @@ const Admin = ({ changeDarkMode, darkMode }) => {
           {/* add team and task container */}
           <div className="admin-image-container">
             <div className="employee-image-container">
-              <img className="new-pic-img" src={UUU.profilePic} alt="pic" />
+              <img className="new-pic-img" src={UUU[0]?.profilepic} alt="pic" />
               <div>
                 <h3
                   className="employee-name"
@@ -179,14 +148,16 @@ const Admin = ({ changeDarkMode, darkMode }) => {
                     color: fontColor,
                   }}
                 >
-                  {UUU.name.charAt(0).toUpperCase() + UUU.name.slice(1)}
+                  {/* excvghbjnkml, */}
+                  {UUU[0]?.name?.charAt(0).toUpperCase() +
+                    UUU[0]?.name?.slice(1)}
                 </h3>
                 <p
                   style={{
                     color: fontColor,
                   }}
                 >
-                  {UUU.designation}
+                  {UUU[0]?.designation}
                 </p>
               </div>
             </div>
@@ -226,7 +197,8 @@ const Admin = ({ changeDarkMode, darkMode }) => {
                 <div className="admin-employess-s-container" key={index}>
                   <img
                     className="admin-employee-images-card"
-                    src={each.profilePic}
+                    src={each.profilepic}
+                    alt=""
                   />
                   <div className="admin-team-delete">
                     <RiDeleteBin5Line
